@@ -21,3 +21,4 @@ class FAQ(Base):
     @property
     def is_faq_sidebar_visible(self):
         return self.is_element_visible(self._faq_sidebar)
+        
