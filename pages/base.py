@@ -18,10 +18,16 @@ class Base(Page):
     class Header(Page):
 
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
+        _faq_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(7) a')
 
         @property
         def main_menu(self):
             return [self.MainMenu(self.testsetup, item) for item in self.find_elements(*self._main_menu_locator)]
+        
+        def click_faq_link(self):
+            self.selenium.find_element(*self._faq_locator).click()
+            from pages.faq import FAQ
+            return FAQ(self.testsetup)
 
         class MainMenu(PageRegion):
 
@@ -31,4 +37,4 @@ class Base(Page):
 
             def click(self):
                 self._root_element.click()
-
+            

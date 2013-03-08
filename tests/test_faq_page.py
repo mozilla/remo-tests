@@ -8,14 +8,14 @@ import pytest
 from unittestzero import Assert
 
 from pages.home import Home
-from pages.labs import Labs
+from pages.faq import FAQ
 
 
-class TestLabsPage:
+class TestFAQPage:
 
     @pytest.mark.nondestructive
-    def test_labs_sidebar(self, mozwebqa):
-        home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
-        faq = home_page.main_menu.click_labs_link()
-        Assert.true(labs.is_the_current_page)
+    def test_faq_sidebar(self, mozwebqa):
+        home = Home(mozwebqa)
+        home.go_to_homepage()
+        faq = home.header.click_faq_link()
+        Assert.true(faq.is_faq_sidebar_visible)

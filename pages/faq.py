@@ -11,16 +11,13 @@ from pages.page import Page
 from pages.base import Base
 
 
-class LabsPage(Base):
+class FAQ(Base):
+    
+    _faq_sidebar = (By.CSS_SELECTOR, '#about-navigation')
 
-    _privacy_section_locator = (By.ID, 'privacy')
-
-    def go_to_labspage(self):
-        self.selenium.get(self.testsetup.base_url + '/labs/')
-        self.is_the_current_page
+    def go_to_faqpage(self):
+        self.selenium.get(self.testsetup.base_url + '/faq/')
 
     @property
-    def is_privacy_section_present(self):
-        return self.is_element_present(*self._privacy_section_locator)
-
-
+    def is_faq_sidebar_visible(self):
+        return self.is_element_visible(self._faq_sidebar)
