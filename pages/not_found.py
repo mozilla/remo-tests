@@ -19,4 +19,4 @@ class NotFound(Base):
         return self.is_element_visible(*self._404_div)
 
     def get_404_text(self):
-        return self.find_element(*self._404_div)
+        return self.find_element(*self._404_div).text
