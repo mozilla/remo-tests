@@ -10,6 +10,7 @@ from unittestzero import Assert
 from pages.home import Home
 from pages.link_crawler import LinkCrawler
 
+
 class TestHomePage:
 
     _menu_items = ['Main', 'People', 'Events', 'Planet', 'Wiki', 'Labs', 'FAQ']
