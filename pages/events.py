@@ -12,13 +12,12 @@ from pages.base import Base
 
 
 class Events(Base):
-    
-    _events_map = (By.CSS_SELECTOR, '#map')
+
+    _events_map_locator = (By.CSS_SELECTOR, '#map')
 
     def go_to_eventspage(self):
         self.selenium.get(self.testsetup.base_url + '/events/')
 
     @property
     def is_events_map_visible(self):
-        return self.is_element_visible(*self._events_map)
-        
+        return self.is_element_visible(*self._events_map_locator)
