@@ -15,6 +15,3 @@ class TestNotFoundPage:
         not_found.go_to_inexisting_page()
         Assert.true(not_found.is_404_error_message_visible)
         Assert.equal(not_found.get_error_message(), '404 - Not found')
-
-
-
