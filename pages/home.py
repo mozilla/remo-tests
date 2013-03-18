@@ -4,7 +4,13 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import requests
+import urllib2
+
+from BeautifulSoup import BeautifulSoup
 from selenium.webdriver.common.by import By
+from urlparse import urlparse
+from urllib2 import HTTPError
 
 from pages.page import Page
 from pages.base import Base
@@ -14,3 +20,9 @@ class Home(Base):
 
     def go_to_homepage(self):
         self.selenium.get(self.base_url)
+
+    @property
+    def get_favicon_url(self):
+        r = requests.get(self.base_url, verify=False)
+        html = BeautifulSoup(r.content)
+        return html.find(attrs={'rel': 'shortcut icon'}).get('href')
