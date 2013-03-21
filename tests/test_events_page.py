@@ -13,13 +13,13 @@ from pages.events import Events
 class TestEventsPage:
 
     @pytest.mark.nondestructive
-    def test_events_map(self, mozwebqa):
+    def test_events_map_is_visible(self, mozwebqa):
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()
         Assert.true(events_page.is_events_map_visible)
 
     @pytest.mark.nondestructive
-    def test_events_table(self, mozwebqa):
+    def test_events_table_is_visible(self, mozwebqa):
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()
         Assert.true(events_page.is_events_table_visible)
