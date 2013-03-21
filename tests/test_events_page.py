@@ -7,7 +7,6 @@
 import pytest
 from unittestzero import Assert
 
-from pages.home import Home
 from pages.events import Events
 
 
@@ -15,7 +14,6 @@ class TestEventsPage:
 
     @pytest.mark.nondestructive
     def test_events_map(self, mozwebqa):
-        home = Home(mozwebqa)
-        home.go_to_homepage()
-        events = home.header.click_events_link()
-        Assert.true(events.is_events_map_visible)
+        events_page = Events(mozwebqa)
+        events_page.go_to_events_page()
+        Assert.true(events_page.is_events_map_visible)
