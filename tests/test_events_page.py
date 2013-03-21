@@ -17,3 +17,9 @@ class TestEventsPage:
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()
         Assert.true(events_page.is_events_map_visible)
+
+    @pytest.mark.nondestructive
+    def test_events_table(self, mozwebqa):
+        events_page = Events(mozwebqa)
+        events_page.go_to_events_page()
+        Assert.true(events_page.is_events_table_visible)
