@@ -13,6 +13,7 @@ class Events(Base):
 
     _page_title = 'Mozilla Reps - Events'
     _events_map_locator = (By.CSS_SELECTOR, '#map')
+    _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')
@@ -21,3 +22,7 @@ class Events(Base):
     @property
     def is_events_map_visible(self):
         return self.is_element_visible(*self._events_map_locator)
+
+    @property
+    def is_events_table_visible(self):
+        return self.is_element_visible(*self._events_table_locator)
