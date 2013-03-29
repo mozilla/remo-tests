@@ -23,3 +23,11 @@ class TestEventsPage:
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()
         Assert.true(events_page.is_events_table_visible)
+
+    @pytest.mark.nondestructive
+    def test_filter_results_by_owner(self, mozwebqa):
+        query = u'Giannelos'
+        events_page = Events(mozwebqa)
+        events_page.go_to_events_page()
+        events_page.filter_for(query)
+        Assert.true(events_page.is_filter_result_visible)
