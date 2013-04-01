@@ -1,13 +1,14 @@
 ReMo Tests
 =========
 
-Automated tests for the ReMo website, reps-dev.allizom.org. Thank you for checking out Mozilla's ReMo test suite. Mozilla and the Mozwebqa team are grateful for the help and hard work of many contributors like yourself. The following contributors have submitted pull requests to ReMo-Tests:
+Automated tests for the ReMo website, reps-dev.allizom.org. Thank you for checking out Mozilla's ReMo test suite. Mozilla and the WebQA team are grateful for the help and hard work of many contributors like yourself. The following contributors have submitted pull requests to the ReMo-Tests project:
+
 https://github.com/mozilla/remo-tests/contributors
 
 Getting involved as a contributor
 ------------------------------------------
 
-We love working with contributors to fill out the Selenium test coverage for Marketplace-Tests, but it does require a few skills.   You will need to know some Python, some Selenium and you will need some basic familiarity with Github.
+We love working with contributors to fill out the Selenium test coverage for ReMo-Tests, but it does require a few skills.   You will need to know some Python, some Selenium and you will need some basic familiarity with Github.
 
 If you know some Python, it's worth having a look at the Selenium framework to understand the basic concepts of browser based testing and especially page objects. Our suite uses [Selenium WebDriver][webdriver].
 
