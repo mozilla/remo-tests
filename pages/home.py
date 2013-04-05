@@ -5,14 +5,8 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import requests
-import urllib2
+from bs4 import BeautifulSoup
 
-from BeautifulSoup import BeautifulSoup
-from selenium.webdriver.common.by import By
-from urlparse import urlparse
-from urllib2 import HTTPError
-
-from pages.page import Page
 from pages.base import Base
 
 
