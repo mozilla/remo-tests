@@ -15,7 +15,8 @@ class Events(Base):
     _events_map_locator = (By.CSS_SELECTOR, '#map')
     _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
     _events_filter_locator = (By.CSS_SELECTOR, '#searchfield')
-    _events_result_locator = (By.CSS_SELECTOR, '.event-item')
+    _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
+    _events_owner_locator = (By.CSS_SELECTOR, '#events-table-body tr.event-item:nth-child(2) td div.row div.two:nth-child(3) div.events-table-owner a')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')
@@ -30,8 +31,12 @@ class Events(Base):
         return self.is_element_visible(*self._events_table_locator)
 
     @property
-    def is_filter_result_visible(self):
+    def is_event_profile_result_visible(self):
         return self.is_element_visible(*self._events_result_locator)
+
+    @property
+    def event_profile_owner_text(self):
+        return self.selenium.find_element(*self._events_owner_locator).text
 
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._events_filter_locator)
