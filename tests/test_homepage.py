@@ -5,13 +5,15 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import pytest
+import requests
 from unittestzero import Assert
 
 from pages.home import Home
 from pages.link_crawler import LinkCrawler
+from base_test import BaseTest
 
 
-class TestHomePage:
+class TestHomePage(BaseTest):
 
     _menu_items = ['Main', 'People', 'Events', 'Planet', 'Wiki', 'Labs', 'FAQ']
 
@@ -28,6 +30,7 @@ class TestHomePage:
     @pytest.mark.skip_selenium
     @pytest.mark.nondestructive
     def test_that_links_in_the_about_page_return_200_code(self, mozwebqa):
+
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/', id='wrapper')
         bad_urls = []
@@ -43,3 +46,16 @@ class TestHomePage:
         Assert.equal(
             0, len(bad_urls),
             u'%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
+
+    @pytest.mark.skip_selenium
+    @pytest.mark.nondestructive
+    def test_favicon_exists(self, mozwebqa):
+
+        home = Home(mozwebqa)
+        favicon_url = home.get_favicon_url
+        # get the response code for the favicon_url, converting it into an absolute url
+        response_code = self.get_response_code(
+            self.make_absolute(favicon_url, mozwebqa.base_url), mozwebqa.timeout
+        )
+        # check that the response code is ok
+        Assert.equal(response_code, requests.codes.ok)
