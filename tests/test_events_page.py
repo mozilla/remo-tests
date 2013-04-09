@@ -8,7 +8,6 @@ from random import randrange
 
 import pytest
 from unittestzero import Assert
-from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.events import Events
 
@@ -33,8 +32,4 @@ class TestEventsPage:
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()
         events_page.filter_for(query)
-
-        WebDriverWait(mozwebqa.selenium, mozwebqa.timeout).until(
-            lambda s: s.find_element_by_id('canvasLoader').is_displayed())
-
         Assert.equal(u'John Giannelos', events_page.event_profile_owner_text)
