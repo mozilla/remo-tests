@@ -17,7 +17,7 @@ class Events(Base):
     _events_map_locator = (By.CSS_SELECTOR, '#map')
     _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
-    _events_owner_locator = (By.CSS_SELECTOR, '#events-table-body tr.event-item:nth-child(2) td div.row div.two:nth-child(3) div.events-table-owner a')
+    _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')

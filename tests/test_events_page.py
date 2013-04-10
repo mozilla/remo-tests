@@ -4,8 +4,6 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from random import randrange
-
 import pytest
 from unittestzero import Assert
 
@@ -28,7 +26,7 @@ class TestEventsPage:
 
     @pytest.mark.nondestructive
     def test_filter_results_by_owner(self, mozwebqa):
-        query = u' John Giannelos '
+        query = u'John Giannelos'
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()
         events_page.filter_for(query)
