@@ -5,21 +5,53 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.page import Page, PageRegion
 
 
 class Base(Page):
 
+    _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
+    _logged_in_locator = (By.CSS_SELECTOR, '#login-box.ten > ul > li.account > div.hide-on-phones')
+    _logout_menu_item_locator = (By.CSS_SELECTOR, '#login-box.ten > ul > li.account > div.hide-on-phones > a[href*="logout"]')
+
     @property
     def header(self):
         return self.Header(self.testsetup)
 
+    @property
+    def is_browserid_link_present(self):
+        return self.is_element_present(*self._browserid_login_locator)
+
+    @property
+    def is_user_loggedin(self):
+        return self.is_element_present(*self._logged_in_locator)
+
+    @property
+    def is_user_loggedout(self):
+        return self.is_element_present(*self._browserid_login_locator)
+
+    def click_browserid_login(self):
+        self.selenium.find_element(*self._browserid_login_locator).click()
+
+    def login(self, user='user'):
+        self.click_browserid_login()
+        credentials = self.testsetup.credentials[user]
+
+        from browserid import BrowserID
+        pop_up = BrowserID(self.selenium, self.timeout)
+        pop_up.sign_in(credentials['email'], credentials['password'])
+        WebDriverWait(self.selenium, 20).until(lambda s: self.is_user_loggedin)
+
+    def click_logout_menu_item(self):
+        self.selenium.find_element(*self._logout_menu_item_locator).click()
+
     class Header(Page):
 
-        _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
         _events_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(3) a')
         _faq_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(7) a')
+        _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
 
         @property
         def main_menu(self):
