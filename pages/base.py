@@ -13,7 +13,6 @@ from pages.page import Page, PageRegion
 class Base(Page):
 
     _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
-    _logged_in_locator = (By.CSS_SELECTOR, '#login-box.ten > ul > li.account > div.hide-on-phones')
     _logout_menu_item_locator = (By.CSS_SELECTOR, '#login-box.ten > ul > li.account > div.hide-on-phones > a[href*="logout"]')
 
     @property
@@ -21,16 +20,8 @@ class Base(Page):
         return self.Header(self.testsetup)
 
     @property
-    def is_browserid_link_present(self):
-        return self.is_element_present(*self._browserid_login_locator)
-
-    @property
     def is_user_loggedin(self):
-        return self.is_element_present(*self._logged_in_locator)
-
-    @property
-    def is_user_loggedout(self):
-        return self.is_element_present(*self._browserid_login_locator)
+        return self.is_element_present(*self._logout_menu_item_locator)
 
     def click_browserid_login(self):
         self.selenium.find_element(*self._browserid_login_locator).click()
@@ -42,7 +33,7 @@ class Base(Page):
         from browserid import BrowserID
         pop_up = BrowserID(self.selenium, self.timeout)
         pop_up.sign_in(credentials['email'], credentials['password'])
-        WebDriverWait(self.selenium, 20).until(lambda s: self.is_user_loggedin)
+        WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_user_loggedin)
 
     def click_logout_menu_item(self):
         self.selenium.find_element(*self._logout_menu_item_locator).click()

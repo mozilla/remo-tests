@@ -15,9 +15,10 @@ class TestLogInOut:
     def test_login_logout(self, mozwebqa):
         home = Home(mozwebqa)
         home.go_to_homepage()
+        Assert.false(home.is_user_loggedin)
         home.login()
-        Assert.true(home.is_account_loggedin)
+        Assert.true(home.is_user_loggedin)
 
         # log out after logging in
         home.click_logout_menu_item()
-        Assert.true(home.is_account_loggedout)
+        Assert.true(home.is_user_loggedout)
