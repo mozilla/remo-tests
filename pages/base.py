@@ -26,9 +26,9 @@ class Base(Page):
     def click_browserid_login(self):
         self.selenium.find_element(*self._browserid_login_locator).click()
 
-    def login(self, user='user'):
+    def login(self, default='default'):
         self.click_browserid_login()
-        credentials = self.testsetup.credentials[user]
+        credentials = self.testsetup.credentials[default]
 
         from browserid import BrowserID
         pop_up = BrowserID(self.selenium, self.timeout)

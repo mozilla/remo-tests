@@ -21,4 +21,4 @@ class TestLogInOut:
 
         # log out after logging in
         home.click_logout_menu_item()
-        Assert.true(home.is_user_loggedout)
+        Assert.false(home.is_user_loggedin)
