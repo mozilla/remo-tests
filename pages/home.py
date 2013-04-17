@@ -14,9 +14,6 @@ from pages.base import Base
 
 class Home(Base):
 
-    _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
-    _signin_locator = (By.CSS_SELECTOR, '#browserid')
-
     def go_to_homepage(self):
         self.selenium.get(self.base_url)
 
