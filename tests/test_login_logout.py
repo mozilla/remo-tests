@@ -9,6 +9,7 @@ from unittestzero import Assert
 
 from pages.home import Home
 
+
 class TestLogInOut:
 
     @pytest.mark.nondestructive

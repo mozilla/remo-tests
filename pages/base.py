@@ -13,7 +13,7 @@ from pages.page import Page, PageRegion
 class Base(Page):
 
     _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
-    _logout_menu_item_locator = (By.CSS_SELECTOR, '#login-box.ten > ul > li.account > div.hide-on-phones > a[href*="logout"]')
+    _logout_menu_item_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href*="logout"]')
 
     @property
     def header(self):
