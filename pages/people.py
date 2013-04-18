@@ -5,9 +5,9 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
-from pages.page import Page
 
 
 class People(Base):
@@ -21,6 +21,7 @@ class People(Base):
     def go_to_people_page(self):
         self.selenium.get(self.base_url + '/people/')
         self.is_the_current_page
+        WebDriverWait(self.selenium, self.timeout).until(lambda s: not s.find_element_by_id('canvasLoader').is_displayed())
 
     @property
     def is_people_map_visible(self):
