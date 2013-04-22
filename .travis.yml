@@ -9,7 +9,7 @@ language: python
 python:
   - 2.7
 
-script: py.test --baseurl=https://reps-dev.allizom.org/ --driver=firefox --destructive
+script: py.test --baseurl=https://reps-dev.allizom.org/ --driver=firefox --destructive -m "not credentials"
 
 
 env:

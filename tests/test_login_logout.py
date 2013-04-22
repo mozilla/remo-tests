@@ -12,6 +12,7 @@ from pages.home import Home
 
 class TestLogInOut:
 
+    @pytest.mark.credentials
     @pytest.mark.nondestructive
     def test_login_logout(self, mozwebqa):
         home = Home(mozwebqa)
