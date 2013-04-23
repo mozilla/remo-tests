@@ -15,6 +15,7 @@ class Home(Base):
     def go_to_homepage(self):
         self.selenium.get(self.base_url)
 
+    @property
     def get_favicon_url(self):
         r = requests.get(self.base_url, verify=False)
         html = BeautifulSoup(r.content)
