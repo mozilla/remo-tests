@@ -8,11 +8,27 @@ import pytest
 from unittestzero import Assert
 from pages.link_crawler import LinkCrawler
 
+from pages.people import People
+
 
 class TestPeoplePage:
 
     @pytest.mark.nondestructive
-    def test_home_page_links(self, mozwebqa):
+    def test_people_map_is_visible(self, mozwebqa):
+        people_page = People(mozwebqa)
+        people_page.go_to_people_page()
+        Assert.true(people_page.is_people_map_visible)
+
+    @pytest.mark.nondestructive
+    def test_profile_grid_is_visible(self, mozwebqa):
+        people_page = People(mozwebqa)
+        people_page.go_to_people_page()
+        Assert.true(people_page.is_profile_grid_visible)
+        Assert.true(people_page.is_profile_name_visible)
+        Assert.true(people_page.is_profile_image_visible)
+
+    @pytest.mark.nondestructive
+    def test_people_page_links(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/people', id ='wrapper')
         bad_urls = []
