@@ -9,6 +9,7 @@ from unittestzero import Assert
 from pages.link_crawler import LinkCrawler
 
 from pages.people import People
+from pages.profile import Profile
 
 
 class TestPeoplePage:
@@ -43,3 +44,20 @@ class TestPeoplePage:
         Assert.equal(
             0, len(bad_urls),
             u'%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
+
+    @pytest.mark.nondestructive
+    def test_filter_results_by_name(self, mozwebqa):
+        query = u'Billings'
+        people_page = People(mozwebqa)
+        people_page.go_to_people_page()
+        people_page.filter_for(query)
+        Assert.equal(u'Billings', people_page.is_people_name_text_visible)
+
+        #Check profile to verify search results where name is not visible
+        query = u'John'
+        people_page = People(mozwebqa)
+        people_page.go_to_people_page()
+        people_page.filter_for(query)
+        people_page.click_to_open_profile()
+        profile_page = Profile(mozwebqa)
+        Assert.true(profile_page.is_text_present(query))
