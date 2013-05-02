@@ -46,6 +46,8 @@ class LinkCrawler(Page):
             lambda u: u if u.startswith('http') else '%s%s' % (self.base_url, u), urls)
 
     def verify_status_code_is_ok(self, url):
+        if not self.should_verify_url(url):
+            return True
         requests.adapters.DEFAULT_RETRIES = 5
         try:
             r = requests.get(url, verify=False, allow_redirects=True)
@@ -55,3 +57,8 @@ class LinkCrawler(Page):
             return u'{0.url} returned: {0.status_code} {0.reason}'.format(r)
         else:
             return True
+
+    def should_verify_url(self, url):
+        """Return false if the url does not need to be verified."""
+        bad_urls = ['%s/' % self.base_url, '%s#' % self.base_url]
+        return not (url.startswith('%sjavascript' % self.base_url) or url.startswith('ftp://') or url in bad_urls)
