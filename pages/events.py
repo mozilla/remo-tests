@@ -14,6 +14,7 @@ class Events(Base):
 
     _page_title = 'Mozilla Reps - Events'
     _events_filter_locator = (By.CSS_SELECTOR, '#searchfield')
+    _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
     _events_map_locator = (By.CSS_SELECTOR, '#map')
     _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
@@ -34,6 +35,10 @@ class Events(Base):
     @property
     def is_event_profile_result_visible(self):
         return self.is_element_visible(*self._events_result_locator)
+
+    @property
+    def event_profile_location_text(self):
+        return self.selenium.find_element(*self._events_location_locator).text
 
     @property
     def event_profile_owner_text(self):
