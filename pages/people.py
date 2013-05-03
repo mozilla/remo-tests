@@ -17,7 +17,7 @@ class People(Base):
     _page_title = 'Mozilla Reps - People'
     _people_filter_locator = (By.CSS_SELECTOR, '#searchfield.input-text')
     _people_map_locator = (By.CSS_SELECTOR, '#map')
-    _people_name_text_locator = (By.CSS_SELECTOR, 'div.row > div.nine > h6:first-child')
+    _people_name_text_locator = (By.CSS_SELECTOR, '.grid-profile-text > h6:first-child')
     _profile_grid_locator = (By.CSS_SELECTOR, '#profiles_gridview')
     _profile_image_locator = (By.CSS_SELECTOR, '#grid-search-list img')
 
