@@ -61,4 +61,4 @@ class LinkCrawler(Page):
     def should_verify_url(self, url):
         """Return false if the url does not need to be verified."""
         bad_urls = ['%s/' % self.base_url, '%s#' % self.base_url]
-        return not (url.startswith('%sjavascript' % self.base_url) or url.startswith('ftp://') or url in bad_urls)
+        return not (url.startswith('%sjavascript' % self.base_url) or url.startswith('ftp://') or url.startswith('irc://') or url in bad_urls)
