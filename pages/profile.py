@@ -18,5 +18,6 @@ class Profile(Base):
         self.selenium.get(self.base_url + '/people/')
         self.is_the_current_page
 
-    def is_text_present(self, query):
-        return self.find_element(*self._page_source).text
+    @property
+    def is_text_present(self):
+        return self.selenium.find_element(*self._page_source).text
