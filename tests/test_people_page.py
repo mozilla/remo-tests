@@ -51,13 +51,11 @@ class TestPeoplePage:
         people_page = People(mozwebqa)
         people_page.go_to_people_page()
         people_page.filter_for(query)
-        Assert.equal(u'Billings', people_page.is_people_name_text_visible)
+        Assert.equal(u'Billings', people_page.people_name_text)
 
         #Check profile to verify search results where name is not visible
         query = u'adesai'
-        people_page = People(mozwebqa)
         people_page.go_to_people_page()
         people_page.filter_for(query)
-        people_page.click_to_open_profile()
-        profile_page = Profile(mozwebqa)
-        Assert.contains(query, profile_page.is_text_present)
+        profile_page = people_page.click_to_open_profile()
+        Assert.contains(query, profile_page.profile_text)

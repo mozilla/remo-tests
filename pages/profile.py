@@ -11,13 +11,13 @@ from pages.base import Base
 
 class Profile(Base):
 
-    _page_source = (By.CSS_SELECTOR, '#wrapper')
-    _page_title = (By.CSS_SELECTOR, 'title:contains("Profile")')
+    _page_source_locator = (By.CSS_SELECTOR, '#wrapper')
+    _page_title_locator = (By.CSS_SELECTOR, 'title:contains("Profile")')
 
     def go_to_people_page(self):
         self.selenium.get(self.base_url + '/people/')
         self.is_the_current_page
 
     @property
-    def is_text_present(self):
-        return self.selenium.find_element(*self._page_source).text
+    def profile_text(self):
+        return self.selenium.find_element(*self._page_source_locator).text

@@ -8,13 +8,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
-from pages.page import Page
+
 
 class People(Base):
 
-    _name_locator = (By.CSS_SELECTOR, '#grid-search-list.block-grid > li.profiles-li-item')
-    _open_profile = (By.CSS_SELECTOR, '#grid-search-list.block-grid > li.profiles-li-item > a')
     _page_title = 'Mozilla Reps - People'
+    _name_locator = (By.CSS_SELECTOR, '#grid-search-list.block-grid > li.profiles-li-item')
+    _open_profile_locator = (By.CSS_SELECTOR, '#grid-search-list.block-grid > li.profiles-li-item > a')
     _people_filter_locator = (By.CSS_SELECTOR, '#searchfield.input-text')
     _people_map_locator = (By.CSS_SELECTOR, '#map')
     _people_name_text_locator = (By.CSS_SELECTOR, '.grid-profile-text > h6:first-child')
@@ -32,12 +32,12 @@ class People(Base):
         WebDriverWait(self.selenium, self.timeout).until(lambda s: not s.find_element_by_id('canvasLoader').is_displayed())
 
     def click_to_open_profile(self):
-        self.selenium.find_element(*self._open_profile).click()
+        self.selenium.find_element(*self._open_profile_locator).click()
         from pages.profile import Profile
         return Profile(self.testsetup)
 
     @property
-    def is_people_name_text_visible(self):
+    def people_name_text(self):
         return self.selenium.find_element(*self._people_name_text_locator).text
 
     @property
