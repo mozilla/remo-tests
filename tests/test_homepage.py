@@ -29,7 +29,7 @@ class TestHomePage(BaseTest):
 
     @pytest.mark.skip_selenium
     @pytest.mark.nondestructive
-    def test_that_links_in_the_about_page_return_200_code(self, mozwebqa):
+    def test_that_links_in_the_home_page_return_200_code(self, mozwebqa):
 
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/', id='wrapper')
