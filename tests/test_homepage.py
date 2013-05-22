@@ -36,9 +36,8 @@ class TestHomePage(BaseTest):
         Assert.greater(len(urls), 0,
             u'The link crawler did not find any urls to crawl')
 
-        check_result = crawler.verify_status_codes_are_ok(urls)
-        if check_result is not True:
-            assert('%s bad links found. ' % len(check_result) + ', '.join(check_result))
+        all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
+        Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
     @pytest.mark.skip_selenium
     @pytest.mark.nondestructive

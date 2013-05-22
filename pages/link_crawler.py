@@ -85,7 +85,4 @@ class LinkCrawler(Page):
         for t in threads:
             t.join()
 
-        if len(results) == 0:
-            return True
-        else:
-            return results
+        return (len(results) == 0, results)
