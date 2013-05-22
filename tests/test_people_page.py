@@ -9,7 +9,6 @@ from unittestzero import Assert
 from pages.link_crawler import LinkCrawler
 
 from pages.people import People
-from pages.profile import Profile
 
 
 class TestPeoplePage:
