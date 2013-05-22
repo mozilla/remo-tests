@@ -5,6 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import requests
+import threading
 from bs4 import BeautifulSoup
 from unittestzero import Assert
 
@@ -53,6 +54,7 @@ class LinkCrawler(Page):
             r = requests.get(url, verify=False, allow_redirects=True)
         except requests.Timeout:
             r.status_code = 408
+
         if not r.status_code == requests.codes.ok:
             return u'{0.url} returned: {0.status_code} {0.reason}'.format(r)
         else:
@@ -65,3 +67,25 @@ class LinkCrawler(Page):
                     url.startswith('%sftp://' % self.base_url) or
                     url.startswith('%sirc://' % self.base_url) or
                     url in bad_urls)
+
+
+    def verify_status_codes_are_ok(self, urls):
+        ''' should use a queue to limit concurrency '''
+        results = []
+        ''' remove duplicates '''
+        urls = list(set(urls));
+        def task_wrapper(url):
+            checkresult = self.verify_status_code_is_ok(url)
+            if checkresult is not True:
+                results.append(checkresult)
+
+        threads = [threading.Thread(target=task_wrapper, args=(url,)) for url in urls]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        if len(results) == 0:
+            return True
+        else:
+            return results

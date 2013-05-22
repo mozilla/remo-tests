@@ -30,22 +30,15 @@ class TestHomePage(BaseTest):
     @pytest.mark.skip_selenium
     @pytest.mark.nondestructive
     def test_that_links_in_the_home_page_return_200_code(self, mozwebqa):
-
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/', id='wrapper')
-        bad_urls = []
 
-        Assert.greater(
-            len(urls), 0, u'something went wrong. no links found.')
+        Assert.greater(len(urls), 0,
+            u'The link crawler did not find any urls to crawl')
 
-        for url in urls:
-            check_result = crawler.verify_status_code_is_ok(url)
-            if check_result is not True:
-                bad_urls.append(check_result)
-
-        Assert.equal(
-            0, len(bad_urls),
-            u'%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
+        check_result = crawler.verify_status_codes_are_ok(urls)
+        if check_result is not True:
+            assert('%s bad links found. ' % len(check_result) + ', '.join(check_result))
 
     @pytest.mark.skip_selenium
     @pytest.mark.nondestructive
