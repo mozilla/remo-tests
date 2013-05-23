@@ -46,14 +46,15 @@ class TestPeoplePage:
 
     @pytest.mark.nondestructive
     def test_filter_results_by_name(self, mozwebqa):
-        query = u'Guillermo'
+        # Verify name in search matches query results
+        query = u'Reps'
         people_page = People(mozwebqa)
         people_page.go_to_people_page()
         people_page.filter_for(query)
-        Assert.equal(u'Guillermo', people_page.people_name_text)
+        Assert.equal(u'Reps', people_page.people_name_text)
 
-        #Check profile to verify search results where name is not visible
-        query = u'adesai'
+        # Check profile to verify search results where search does not match name
+        query = u'moz_reps_user'
         people_page.go_to_people_page()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
