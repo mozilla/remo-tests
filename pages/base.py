@@ -58,7 +58,7 @@ class Base(Page):
             self.selenium.find_element(*self._faq_locator).click()
             from pages.faq import FAQ
             return FAQ(self.testsetup)
-        
+
         def click_settings(self):
             self.selenium.find_element(*self._settings_locator).click()
             from pages.settings import Settings

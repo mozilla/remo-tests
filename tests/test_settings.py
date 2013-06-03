@@ -14,22 +14,23 @@ class TestSettings:
 
     @pytest.mark.credentials
     def test_email_settings(self, mozwebqa):
-        home = Home(mozwebqa)
-        home.go_to_homepage()
-        Assert.false(home.is_user_loggedin)
-        home.login()
-        Assert.true(home.is_user_loggedin)
+        home_page = Home(mozwebqa)
+        home_page.go_to_homepage()
+        Assert.false(home_page.is_user_loggedin)
+        home_page.login()
+        Assert.true(home_page.is_user_loggedin)
 
-        settings = home.header.click_settings()
-        report_inital_state = settings.is_report_checked
-        events_inital_state = settings.is_events_checked
+        settings_page = home_page.header.click_settings()
+        report_inital_state = settings_page.is_report_checked
+        events_inital_state = settings_page.is_events_checked
 
-        settings.click_report_checkbox()
-        settings.click_events_checkbox()
+        settings_page.click_report_checkbox()
+        settings_page.click_events_checkbox()
 
-        settings.click_save()
+        dashboard_page = settings_page.click_save()
+        Assert.true(dashboard_page.is_success_message_visible)
 
-        settings = home.header.click_settings()
+        settings_page = home_page.header.click_settings()
 
-        Assert.not_equal(report_inital_state, settings.is_report_checked)
-        Assert.not_equal(events_inital_state, settings.is_events_checked)
+        Assert.not_equal(report_inital_state, settings_page.is_report_checked)
+        Assert.not_equal(events_inital_state, settings_page.is_events_checked)
