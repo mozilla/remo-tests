@@ -58,4 +58,5 @@ class TestPeoplePage:
         people_page.go_to_people_page()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
+        profile_page.wait_for_profile_to_load()
         Assert.contains(query, profile_page.profile_text)
