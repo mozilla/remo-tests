@@ -12,7 +12,6 @@ from pages.base import Base
 class Profile(Base):
 
     _page_source_locator = (By.ID, 'wrapper')
-    _page_title_locator = (By.CSS_SELECTOR, 'title:contains("Profile")')
     _user_avatar_locator = (By.ID, 'profiles-view-avatar')
 
     def __init__(self, testsetup):
