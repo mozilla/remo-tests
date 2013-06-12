@@ -14,6 +14,7 @@ class Base(Page):
 
     _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
     _logout_menu_item_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href*="logout"]')
+    _page_header_locator = (By.CSS_SELECTOR, 'header')
 
     @property
     def header(self):
@@ -37,6 +38,9 @@ class Base(Page):
 
     def click_logout_menu_item(self):
         self.selenium.find_element(*self._logout_menu_item_locator).click()
+
+    def wait_for_page_to_load(self):
+        WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_element_visible(*self._page_header_locator))
 
     class Header(Page):
 
