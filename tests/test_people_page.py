@@ -30,7 +30,7 @@ class TestPeoplePage:
     @pytest.mark.nondestructive
     def test_people_page_links(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
-        urls = crawler.collect_links('/people', id ='wrapper')
+        urls = crawler.collect_links('/people', id='wrapper')
         bad_urls = []
 
         Assert.greater(len(urls), 0, u'something went wrong. no links found.')
@@ -58,5 +58,4 @@ class TestPeoplePage:
         people_page.go_to_people_page()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
-        profile_page.wait_for_profile_to_load()
         Assert.contains(query, profile_page.profile_text)

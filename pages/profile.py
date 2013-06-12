@@ -5,7 +5,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
 
@@ -14,7 +13,10 @@ class Profile(Base):
 
     _page_source_locator = (By.CSS_SELECTOR, '#wrapper')
     _page_title_locator = (By.CSS_SELECTOR, 'title:contains("Profile")')
-    _profile_details_locator = (By.CSS_SELECTOR, '.eleven.columns')
+
+    def __init__(self, testsetup):
+        Base.__init__(self, testsetup)
+        self.wait_for_page_to_load()
 
     def go_to_people_page(self):
         self.selenium.get(self.base_url + '/people/')
@@ -23,6 +25,3 @@ class Profile(Base):
     @property
     def profile_text(self):
         return self.selenium.find_element(*self._page_source_locator).text
-
-    def wait_for_profile_to_load(self):
-        WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_element_visible(*self._profile_details_locator))
