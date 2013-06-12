@@ -13,10 +13,11 @@ class Profile(Base):
 
     _page_source_locator = (By.CSS_SELECTOR, '#wrapper')
     _page_title_locator = (By.CSS_SELECTOR, 'title:contains("Profile")')
+    _user_details_locator = (By.CSS_SELECTOR, '#wrapper > .container > .row > .six.columns')
 
     def __init__(self, testsetup):
         Base.__init__(self, testsetup)
-        self.wait_for_page_to_load()
+        self.wait_for_element_present(*self._user_details_locator)
 
     def go_to_people_page(self):
         self.selenium.get(self.base_url + '/people/')
