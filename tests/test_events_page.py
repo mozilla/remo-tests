@@ -48,20 +48,12 @@ class TestEventsPage:
     def test_that_links_in_the_events_page_return_200_code(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/events/', id='wrapper')
-        bad_urls = []
 
-        Assert.greater(
-            len(urls), 0,
+        Assert.greater(len(urls), 0,
             'The link crawler did not find any urls to crawl')
 
-        for url in urls:
-            check_result = crawler.verify_status_code_is_ok(url)
-            if check_result is not True:
-                bad_urls.append(check_result)
-
-        Assert.equal(
-            0, len(bad_urls),
-            '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
+        all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
+        Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
     @pytest.mark.nondestructive
     def test_events_icalendar_export(self, mozwebqa):
