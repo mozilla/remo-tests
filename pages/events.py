@@ -19,6 +19,7 @@ class Events(Base):
     _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
     _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
+    _events_icalendar_export_button_locator = (By.CSS_SELECTOR, '#icalendar-export-button')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')
@@ -43,6 +44,14 @@ class Events(Base):
     @property
     def event_profile_owner_text(self):
         return self.selenium.find_element(*self._events_owner_locator).text
+
+    @property
+    def events_icalendar_export_button_url(self):
+        return self.selenium.find_element(*self._events_icalendar_export_button_locator).get_attribute('href')
+
+    @property
+    def event_items_count(self):
+        return len(self.selenium.find_elements(*self._events_result_locator))
 
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._events_filter_locator)
