@@ -55,6 +55,7 @@ class TestPeoplePage:
 
         # Check profile to verify search results where search does not match name
         query = u'moz_reps_user'
+        people_page = People(mozwebqa)
         people_page.go_to_people_page()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
