@@ -20,6 +20,8 @@ class People(Base):
     _people_name_text_locator = (By.CSS_SELECTOR, '.grid-profile-text > h6:first-child')
     _profile_grid_locator = (By.CSS_SELECTOR, '#profiles_gridview')
     _profile_image_locator = (By.CSS_SELECTOR, '#grid-search-list img')
+    _profile_list_locator = (By.CSS_SELECTOR, '#profiles_listview')
+    _list_view_button_locator = (By.CSS_SELECTOR,'#listviewbutton')
 
     def go_to_people_page(self):
         self.selenium.get(self.base_url + '/people/')
@@ -35,6 +37,9 @@ class People(Base):
         self.selenium.find_element(*self._open_profile_locator).click()
         from pages.profile import Profile
         return Profile(self.testsetup)
+
+    def select_list_view(self):
+        self.selenium.find_element(*self._list_view_button_locator).click()
 
     @property
     def people_name_text(self):
@@ -55,3 +60,7 @@ class People(Base):
     @property
     def is_profile_image_visible(self):
         return self.is_element_visible(*self._profile_image_locator)
+
+    @property
+    def is_profile_list_visible(self):
+        return self.is_element_visible(*self._profile_list_locator)
