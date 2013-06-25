@@ -38,7 +38,7 @@ class People(Base):
         from pages.profile import Profile
         return Profile(self.testsetup)
 
-    def select_list_view(self):
+    def click_list_view(self):
         self.selenium.find_element(*self._list_view_button_locator).click()
 
     @property
