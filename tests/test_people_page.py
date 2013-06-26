@@ -28,7 +28,7 @@ class TestPeoplePage:
         Assert.true(people_page.is_profile_image_visible)
 
     @pytest.mark.nondestructive
-    def test_profile_list_is_visible(self, mozwebqa):
+    def test_profile_list_view(self, mozwebqa):
         people_page = People(mozwebqa)
         people_page.go_to_people_page()
         people_page.click_list_view()
