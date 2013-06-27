@@ -8,6 +8,7 @@ import time
 from unittestzero import Assert
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
@@ -35,7 +36,7 @@ class Page(object):
             WebDriverWait(self.selenium, 10).until(lambda s: self.selenium.title)
 
         Assert.equal(self.selenium.title, self._page_title,
-            "Expected page title: %s. Actual page title: %s" % (self._page_title, self.selenium.title))
+                     "Expected page title: %s. Actual page title: %s" % (self._page_title, self.selenium.title))
         return True
 
     def is_element_present(self, *locator):
@@ -52,7 +53,7 @@ class Page(object):
     def is_element_visible(self, *locator):
         try:
             return self._selenium_root.find_element(*locator).is_displayed()
-        except (NoSuchElementException, ElementNotVisibleException):
+        except (NoSuchElementException, ElementNotVisibleException, StaleElementReferenceException):
             return False
 
     def is_element_not_visible(self, *locator):
