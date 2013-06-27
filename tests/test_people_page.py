@@ -28,6 +28,13 @@ class TestPeoplePage:
         Assert.true(people_page.is_profile_image_visible)
 
     @pytest.mark.nondestructive
+    def test_profile_list_view(self, mozwebqa):
+        people_page = People(mozwebqa)
+        people_page.go_to_people_page()
+        people_page.click_list_view()
+        Assert.true(people_page.is_profile_list_visible)
+
+    @pytest.mark.nondestructive
     def test_people_page_links(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/people', id='wrapper')
