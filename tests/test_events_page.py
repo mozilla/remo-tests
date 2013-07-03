@@ -5,6 +5,8 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import pytest
+import requests
+from icalendar import Calendar
 from unittestzero import Assert
 
 from pages.events import Events
@@ -53,3 +55,13 @@ class TestEventsPage:
         all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
+    @pytest.mark.nondestructive
+    def test_events_icalendar_export(self, mozwebqa):
+        events_page = Events(mozwebqa)
+        events_page.go_to_events_page()
+        response = requests.get(events_page.events_icalendar_export_button_url)
+
+        icalendar = Calendar.from_ical(response.text)
+        icalendar_events_count = len(filter(lambda c: c.name == 'VEVENT', icalendar.walk()))
+
+        Assert.equal(icalendar_events_count, events_page.event_items_count)
