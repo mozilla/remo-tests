@@ -11,7 +11,6 @@ from selenium.common.exceptions import ElementNotVisibleException
 from selenium.common.exceptions import StaleElementReferenceException
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import WebDriverException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 
@@ -118,7 +117,7 @@ class Page(object):
     def maximize_window(self):
         try:
             self.selenium.maximize_window()
-        except WebDriverException as e:
+        except WebDriverException:
             pass
 
     def find_element(self, *locator):
