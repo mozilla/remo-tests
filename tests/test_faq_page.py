@@ -8,7 +8,6 @@ import pytest
 from unittestzero import Assert
 
 from pages.home import Home
-from pages.faq import FAQ
 from pages.link_crawler import LinkCrawler
 
 
@@ -32,4 +31,3 @@ class TestFAQPage:
 
         all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
-

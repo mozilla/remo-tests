@@ -7,13 +7,16 @@
 
 from selenium.webdriver.common.by import By
 
-from pages.page import Page
 from pages.base import Base
 
 
 class FAQ(Base):
-    
+
     _faq_sidebar = (By.CSS_SELECTOR, '#about-navigation')
+
+    def __init__(self, testsetup):
+        Base.__init__(self, testsetup)
+        self.wait_for_element_visible(*self._faq_sidebar)
 
     def go_to_faqpage(self):
         self.selenium.get(self.testsetup.base_url + '/faq/')
@@ -21,4 +24,3 @@ class FAQ(Base):
     @property
     def is_faq_sidebar_visible(self):
         return self.is_element_visible(*self._faq_sidebar)
-        
