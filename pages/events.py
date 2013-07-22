@@ -13,13 +13,13 @@ from pages.base import Base
 class Events(Base):
 
     _page_title = 'Mozilla Reps - Events'
-    _events_filter_locator = (By.CSS_SELECTOR, '#searchfield')
+    _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
-    _events_map_locator = (By.CSS_SELECTOR, '#map')
-    _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
+    _events_map_locator = (By.ID, 'map')
+    _events_table_locator = (By.ID, 'events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
     _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
-    _events_icalendar_export_button_locator = (By.CSS_SELECTOR, '#icalendar-export-button')
+    _events_icalendar_export_button_locator = (By.ID, 'icalendar-export-button')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')
