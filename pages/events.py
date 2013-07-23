@@ -13,13 +13,15 @@ from pages.base import Base
 class Events(Base):
 
     _page_title = 'Mozilla Reps - Events'
-    _events_filter_locator = (By.CSS_SELECTOR, '#searchfield')
+    _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
-    _events_map_locator = (By.CSS_SELECTOR, '#map')
-    _events_table_locator = (By.CSS_SELECTOR, '#events-table-body')
+    _events_map_locator = (By.ID, 'map')
+    _events_table_locator = (By.ID, 'events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
     _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
-    _events_icalendar_export_button_locator = (By.CSS_SELECTOR, '#icalendar-export-button')
+    _events_icalendar_export_button_locator = (By.ID, 'icalendar-export-button')
+    _advanced_options_button_locator = (By.ID, 'adv-search-icon-events')
+    _advanced_search_form_locator = (By.ID, 'searchform')
 
     def go_to_events_page(self):
         self.selenium.get(self.base_url + '/events/')
@@ -36,6 +38,14 @@ class Events(Base):
     @property
     def is_event_profile_result_visible(self):
         return self.is_element_visible(*self._events_result_locator)
+
+    @property
+    def is_events_icalendar_export_button_visible(self):
+        return self.is_element_visible(*self._events_icalendar_export_button_locator)
+
+    @property
+    def is_advanced_search_form_visible(self):
+        return self.is_element_visible(*self._advanced_search_form_locator)
 
     @property
     def event_profile_location_text(self):
@@ -57,3 +67,6 @@ class Events(Base):
         element = self.selenium.find_element(*self._events_filter_locator)
         element.send_keys(search_term)
         WebDriverWait(self.selenium, self.timeout).until(lambda s: not s.find_element_by_id('canvasLoader').is_displayed())
+
+    def click_advanced_options(self):
+        self.selenium.find_element(*self._advanced_options_button_locator).click()
