@@ -28,6 +28,14 @@ class TestEventsPage:
         Assert.true(events_page.is_events_table_visible)
 
     @pytest.mark.nondestructive
+    def test_advanced_options_are_visible(self, mozwebqa):
+        events_page = Events(mozwebqa)
+        events_page.go_to_events_page()
+        events_page.click_advanced_options()
+        Assert.true(events_page.is_advanced_search_form_visible)
+        Assert.true(events_page.is_events_icalendar_export_button_visible)
+
+    @pytest.mark.nondestructive
     def test_filter_results_by_owner(self, mozwebqa):
         query = u'John Giannelos'
         events_page = Events(mozwebqa)
@@ -52,7 +60,7 @@ class TestEventsPage:
         Assert.greater(len(urls), 0,
             'The link crawler did not find any urls to crawl')
 
-        all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
+        all_ok, bad_urls = crawler.verify_status_codes_are_ok(urls)
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
     @pytest.mark.nondestructive
