@@ -43,6 +43,7 @@ class Base(Page):
         _events_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(3) a')
         _faq_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(7) a')
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
+        _settings_locator = (By.CSS_SELECTOR, '#login-box .hide-on-phones > a:nth-child(2)')
 
         @property
         def main_menu(self):
@@ -57,6 +58,11 @@ class Base(Page):
             self.selenium.find_element(*self._faq_locator).click()
             from pages.faq import FAQ
             return FAQ(self.testsetup)
+
+        def click_settings(self):
+            self.selenium.find_element(*self._settings_locator).click()
+            from pages.settings import Settings
+            return Settings(self.testsetup)
 
         class MainMenu(PageRegion):
 
