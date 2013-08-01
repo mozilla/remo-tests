@@ -58,7 +58,7 @@ class TestPeoplePage:
         people_page = People(mozwebqa)
         people_page.go_to_people_page()
         people_page.filter_for(query)
-        Assert.equal(u'Reps', people_page.people_name_text)
+        Assert.contains(u'Reps', people_page.people_name_text)
 
         # Check profile to verify search results where search does not match name
         query = u'moz_reps_user'
