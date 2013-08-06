@@ -22,6 +22,14 @@ class TestEventsPage:
         Assert.true(events_page.is_events_map_visible)
 
     @pytest.mark.nondestructive
+    def test_events_timeline_is_visible(self, mozwebqa):
+        events_page = Events(mozwebqa)
+        events_page.go_to_events_page()
+        events_page.click_timeline()
+        events_page.wait_for_page_to_load()
+        Assert.true(events_page.is_events_timeline_visible)
+
+    @pytest.mark.nondestructive
     def test_events_table_is_visible(self, mozwebqa):
         events_page = Events(mozwebqa)
         events_page.go_to_events_page()

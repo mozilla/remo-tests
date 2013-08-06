@@ -16,6 +16,8 @@ class Events(Base):
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
     _events_map_locator = (By.ID, 'map')
+    _events_timeline_button_locator = (By.ID, 'events-timeline-button')
+    _events_timeline_locator = (By.ID, 'event-timeline')
     _events_table_locator = (By.ID, 'events-table-body')
     _events_result_locator = (By.CSS_SELECTOR, '#events-table-body .event-item')
     _events_owner_locator = (By.CSS_SELECTOR, 'div.events-table-owner a')
@@ -30,6 +32,10 @@ class Events(Base):
     @property
     def is_events_map_visible(self):
         return self.is_element_visible(*self._events_map_locator)
+
+    @property
+    def is_events_timeline_visible(self):
+        return self.is_element_visible(*self._events_timeline_locator)
 
     @property
     def is_events_table_visible(self):
@@ -70,3 +76,6 @@ class Events(Base):
 
     def click_advanced_options(self):
         self.selenium.find_element(*self._advanced_options_button_locator).click()
+
+    def click_timeline(self):
+        self.selenium.find_element(*self._events_timeline_button_locator).click()
