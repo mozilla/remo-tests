@@ -32,6 +32,9 @@ class Events(Base):
         WebDriverWait(self.selenium, self.timeout).until(
                 lambda s: len(s.find_elements(*self._events_result_locator)))
 
+    def go_to_event_detail_page(self):
+        self.selenium.get(self.base_url + '/e/eventedit/')
+
     @property
     def is_events_map_visible(self):
         return self.is_element_visible(*self._events_map_locator)
