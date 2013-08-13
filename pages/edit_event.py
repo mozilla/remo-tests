@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from pages.base import Base
 from pages.event_detail import EventDetail
 
+
 class EditEvent(Base):
 
     _description_field_locator = (By.ID, 'id_description')

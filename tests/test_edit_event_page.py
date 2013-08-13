@@ -13,6 +13,7 @@ from pages.event_detail import EventDetail
 from pages.events import Events
 from pages.home import Home
 
+
 class TestEditEventPage:
 
     @pytest.mark.nondestructive
