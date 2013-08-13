@@ -12,10 +12,10 @@ from pages.base import Base
 class About(Base):
 
     _page_title = 'Mozilla Reps - About'
-    _about_page_header_locator = (By.CSS_SELECTOR, '#about-text h3')
+    _about_page_header_locator = (By.CSS_SELECTOR, '#about-text h1')
     _about_page_text_locator = (By.CSS_SELECTOR, '#about-text > p')
-    _about_sidebar_faq_locator = (By.CSS_SELECTOR, '#about-navigation.three > nav > ul > li > a[href*="faq"]')
-    _about_sidebar_wiki_locator = (By.CSS_SELECTOR, '#about-navigation.three > nav > ul > li > a[href*="wiki"]')
+    _about_sidebar_faq_locator = (By.CSS_SELECTOR, '#about-navigation a[href*="faq"]')
+    _about_sidebar_wiki_locator = (By.CSS_SELECTOR, '#about-navigation a[href*="wiki"]')
 
     def go_to_about_page(self):
         self.selenium.get(self.base_url + '/about/')

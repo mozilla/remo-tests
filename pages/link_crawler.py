@@ -51,12 +51,14 @@ class LinkCrawler(Page):
             return True
         requests.adapters.DEFAULT_RETRIES = 5
         try:
-            r = requests.get(url, verify=False, allow_redirects=True)
+            r = requests.get(url, verify=False, allow_redirects=True, timeout=20)
+            status_code = r.status_code
+            reason = r.reason
         except requests.Timeout:
-            r.status_code = 408
-
-        if not r.status_code == requests.codes.ok:
-            return u'{0.url} returned: {0.status_code} {0.reason}'.format(r)
+            status_code = 408
+            reason = 'Connection timed out.'
+        if not status_code == requests.codes.ok:
+            return u'%s returned: %s - %s' % (url, status_code, reason)
         else:
             return True
 
@@ -68,12 +70,12 @@ class LinkCrawler(Page):
                     url.startswith('%sirc://' % self.base_url) or
                     url in bad_urls)
 
-
     def verify_status_codes_are_ok(self, urls):
         ''' should use a queue to limit concurrency '''
         results = []
         ''' remove duplicates '''
-        urls = list(set(urls));
+        urls = list(set(urls))
+
         def task_wrapper(url):
             checkresult = self.verify_status_code_is_ok(url)
             if checkresult is not True:
