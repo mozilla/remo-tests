@@ -24,11 +24,15 @@ class TestEditEventPage:
         events_page.go_to_event_detail_page()
         event_detail_page = EventDetail(mozwebqa)
         event_detail_page.click_edit_event_button()
-        current_time = str(time.time()).split('.')[0]
 
         #update event description
         edit_event_page = EditEvent(mozwebqa)
+        current_time = str(time.time()).split('.')[0]
         new_description = "Updated event description %s" % current_time
         edit_event_page.edit_event_description(new_description)
         edit_event_page.click_save_event_button()
         Assert.true(event_detail_page.event_saved_message)
+
+        #verify changes
+        description = event_detail_page.description
+        Assert.contains (new_description, description)
