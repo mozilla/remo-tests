@@ -26,4 +26,4 @@ class EventDetail(Base):
 
     @property
     def event_saved_message(self):
-        return self.selenium.find_element(*self._event_saved_message_locator)
+        return self.is_element_visible(*self._event_saved_message_locator)
