@@ -16,6 +16,7 @@ from pages.home import Home
 
 class TestEditEventPage:
 
+    @pytest.mark.credentials
     @pytest.mark.nondestructive
     def test_edit_event(self, mozwebqa):
         home_page = Home(mozwebqa)
