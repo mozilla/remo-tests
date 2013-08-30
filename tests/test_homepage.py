@@ -20,11 +20,9 @@ class TestHomePage(BaseTest):
     @pytest.mark.nondestructive
     def test_menu_items(self, mozwebqa):
 
-        home = Home(mozwebqa)
+        home_page = Home(mozwebqa)
 
-        home.go_to_homepage()
-
-        for menu_item in home.header.main_menu:
+        for menu_item in home_page.header.main_menu:
             Assert.contains(menu_item.text, self._menu_items)
 
     @pytest.mark.skip_selenium
