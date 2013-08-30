@@ -15,7 +15,7 @@ class TestSettings:
     @pytest.mark.credentials
     def test_email_settings(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         Assert.false(home_page.is_user_loggedin)
         home_page.login()
         Assert.true(home_page.is_user_loggedin)

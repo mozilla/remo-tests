@@ -15,9 +15,9 @@ class TestFAQPage:
 
     @pytest.mark.nondestructive
     def test_faq_sidebar(self, mozwebqa):
-        home = Home(mozwebqa)
-        home.go_to_homepage()
-        faq = home.header.click_faq_link()
+        home_page = Home(mozwebqa)
+
+        faq = home_page.header.click_faq_link()
         Assert.true(faq.is_faq_sidebar_visible)
 
     @pytest.mark.skip_selenium
