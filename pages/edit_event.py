@@ -13,13 +13,13 @@ from pages.event_detail import EventDetail
 class EditEvent(Base):
 
     _description_field_locator = (By.ID, 'id_description')
-    _save_event_button = (By.CSS_SELECTOR, '.four.columns.align-right.hide-on-phones button')
+    _save_event_button_locator = (By.CSS_SELECTOR, '.four.columns.align-right.hide-on-phones button')
 
-    def edit_event_description(self, new_description):
+    def set_event_description(self, new_description):
         element = self.selenium.find_element(*self._description_field_locator)
         element.clear()
         element.send_keys(new_description)
 
     def click_save_event_button(self):
-        self.selenium.find_element(*self._save_event_button).click()
+        self.selenium.find_element(*self._save_event_button_locator).click()
         return EventDetail(self.testsetup)

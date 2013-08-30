@@ -5,7 +5,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import pytest
-import time 
+import time
 from unittestzero import Assert
 
 from pages.edit_event import EditEvent
@@ -30,9 +30,9 @@ class TestEditEventPage:
         edit_event_page = EditEvent(mozwebqa)
         current_time = str(time.time()).split('.')[0]
         new_description = "Updated event description %s" % current_time
-        edit_event_page.edit_event_description(new_description)
+        edit_event_page.set_event_description(new_description)
         edit_event_page.click_save_event_button()
-        Assert.true(event_detail_page.event_saved_message)
+        Assert.true(event_detail_page.is_event_saved_message_visible)
 
         #verify changes
         description = event_detail_page.description
