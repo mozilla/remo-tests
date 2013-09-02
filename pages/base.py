@@ -45,22 +45,25 @@ class Base(Page):
 
     class Header(Page):
 
-        _events_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(3) a')
-        _faq_locator = (By.CSS_SELECTOR, '#navigation-box li:nth-child(7) a')
+        _events_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/events/"]')
+        _faq_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/faq/"]')
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
-        _settings_locator = (By.CSS_SELECTOR, '#login-box .hide-on-phones > a:nth-child(2)')
+        _settings_menu_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href$="/settings/"]')
+        _people_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/people/"]')
+        _planet_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="planet"]')
+        _wiki_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="wiki"]')
 
         @property
         def main_menu(self):
             return [self.MainMenu(self.testsetup, item) for item in self.find_elements(*self._main_menu_locator)]
 
         def click_events_link(self):
-            self.selenium.find_element(*self._events_locator).click()
+            self.selenium.find_element(*self._events_menu_locator).click()
             from pages.events import Events
             return Events(self.testsetup)
 
         def click_faq_link(self):
-            self.selenium.find_element(*self._faq_locator).click()
+            self.selenium.find_element(*self._faq_menu_locator).click()
             from pages.faq import FAQ
             return FAQ(self.testsetup)
 
@@ -68,6 +71,11 @@ class Base(Page):
             self.selenium.find_element(*self._settings_locator).click()
             from pages.settings import Settings
             return Settings(self.testsetup)
+
+        def click_people(self):
+            self.selenium.find_element(*self._people_menu_locator).click()
+            from pages.people import People
+            return People(self.testsetup)
 
         class MainMenu(PageRegion):
 

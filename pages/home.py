@@ -14,6 +14,7 @@ class Home(Base):
 
     def go_to_homepage(self):
         self.selenium.get(self.base_url)
+        self.maximize_window()
 
     @property
     def get_favicon_url(self):

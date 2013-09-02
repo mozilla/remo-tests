@@ -8,6 +8,7 @@ import pytest
 from unittestzero import Assert
 from pages.link_crawler import LinkCrawler
 
+from pages.home import Home
 from pages.people import People
 
 
@@ -15,22 +16,25 @@ class TestPeoplePage:
 
     @pytest.mark.nondestructive
     def test_people_map_is_visible(self, mozwebqa):
-        people_page = People(mozwebqa)
-        people_page.go_to_people_page()
+        home_page = Home(mozwebqa)
+        home_page.go_to_homepage()
+        people_page = home_page.header.click_people()
         Assert.true(people_page.is_people_map_visible)
 
     @pytest.mark.nondestructive
     def test_profile_grid_is_visible(self, mozwebqa):
-        people_page = People(mozwebqa)
-        people_page.go_to_people_page()
+        home_page = Home(mozwebqa)
+        home_page.go_to_homepage()
+        people_page = home_page.header.click_people()
         Assert.true(people_page.is_profile_grid_visible)
         Assert.true(people_page.is_profile_name_visible)
         Assert.true(people_page.is_profile_image_visible)
 
     @pytest.mark.nondestructive
     def test_profile_list_view(self, mozwebqa):
-        people_page = People(mozwebqa)
-        people_page.go_to_people_page()
+        home_page = Home(mozwebqa)
+        home_page.go_to_homepage()
+        people_page = home_page.header.click_people()
         people_page.click_list_view()
         Assert.true(people_page.is_profile_list_visible)
 
@@ -55,15 +59,17 @@ class TestPeoplePage:
     def test_filter_results_by_name(self, mozwebqa):
         # Verify name in search matches query results
         query = u'Reps'
-        people_page = People(mozwebqa)
-        people_page.go_to_people_page()
+        home_page = Home(mozwebqa)
+        home_page.go_to_homepage()
+        people_page = home_page.header.click_people()
         people_page.filter_for(query)
         Assert.contains(u'Reps', people_page.people_name_text)
 
         # Check profile to verify search results where search does not match name
         query = u'moz_reps_user'
-        people_page = People(mozwebqa)
-        people_page.go_to_people_page()
+        home_page = Home(mozwebqa)
+        home_page.go_to_homepage()
+        people_page = home_page.header.click_people()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
         Assert.contains(query, profile_page.profile_text)
