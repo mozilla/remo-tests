@@ -18,14 +18,14 @@ class TestEventsPage:
     @pytest.mark.nondestructive
     def test_events_map_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         Assert.true(events_page.is_events_map_visible)
 
     @pytest.mark.nondestructive
     def test_events_timeline_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         events_page.click_timeline()
         events_page.wait_for_page_to_load()
@@ -34,14 +34,14 @@ class TestEventsPage:
     @pytest.mark.nondestructive
     def test_events_table_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         Assert.true(events_page.is_events_table_visible)
 
     @pytest.mark.nondestructive
     def test_advanced_options_are_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         events_page.click_advanced_options()
         Assert.true(events_page.is_advanced_search_form_visible)
@@ -51,7 +51,7 @@ class TestEventsPage:
     def test_filter_results_by_owner(self, mozwebqa):
         query = u'John Giannelos'
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         events_page.filter_for(query)
         Assert.equal(u'John Giannelos', events_page.event_profile_owner_text)
@@ -60,7 +60,7 @@ class TestEventsPage:
     def test_filter_results_by_location(self, mozwebqa):
         query = u'Greece'
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         events_page.filter_for(query)
         Assert.contains(u'Greece', events_page.event_profile_location_text)
@@ -80,7 +80,7 @@ class TestEventsPage:
     @pytest.mark.nondestructive
     def test_events_icalendar_export(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         events_page = home_page.header.click_events_link()
         response = requests.get(events_page.events_icalendar_export_button_url)
 

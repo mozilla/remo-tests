@@ -48,7 +48,7 @@ class Base(Page):
         _events_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/events/"]')
         _faq_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/faq/"]')
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
-        _settings_menu_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href$="/settings/"]')
+        _settings_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href$="/settings/"]')
         _people_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/people/"]')
         _planet_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="planet"]')
         _wiki_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="wiki"]')

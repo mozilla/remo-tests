@@ -17,14 +17,14 @@ class TestPeoplePage:
     @pytest.mark.nondestructive
     def test_people_map_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         people_page = home_page.header.click_people()
         Assert.true(people_page.is_people_map_visible)
 
     @pytest.mark.nondestructive
     def test_profile_grid_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         people_page = home_page.header.click_people()
         Assert.true(people_page.is_profile_grid_visible)
         Assert.true(people_page.is_profile_name_visible)
@@ -33,7 +33,7 @@ class TestPeoplePage:
     @pytest.mark.nondestructive
     def test_profile_list_view(self, mozwebqa):
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         people_page = home_page.header.click_people()
         people_page.click_list_view()
         Assert.true(people_page.is_profile_list_visible)
@@ -60,7 +60,7 @@ class TestPeoplePage:
         # Verify name in search matches query results
         query = u'Reps'
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         people_page = home_page.header.click_people()
         people_page.filter_for(query)
         Assert.contains(u'Reps', people_page.people_name_text)
@@ -68,7 +68,7 @@ class TestPeoplePage:
         # Check profile to verify search results where search does not match name
         query = u'moz_reps_user'
         home_page = Home(mozwebqa)
-        home_page.go_to_homepage()
+
         people_page = home_page.header.click_people()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
