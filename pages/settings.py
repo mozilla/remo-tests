@@ -12,9 +12,7 @@ from pages.base import Base
 class Settings(Base):
 
     _report_email_checkbox_locator = (By.ID, 'id_receive_email_on_add_comment')
-    _checked_email_checkbox_locator = (By.CSS_SELECTOR, '#id_receive_email_on_add_comment[checked="checked"]')
     _events_email_checkbox_locator = (By.ID, 'id_receive_email_on_add_event_comment')
-    _checked_events_checkbox_locator = (By.CSS_SELECTOR, '#id_receive_email_on_add_event_comment[checked="checked"]')
     _save_locator = (By.ID, 'save-settings')
 
     def click_report_checkbox(self):
