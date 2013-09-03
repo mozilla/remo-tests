@@ -15,12 +15,12 @@ class TestLogInOut:
     @pytest.mark.credentials
     @pytest.mark.nondestructive
     def test_login_logout(self, mozwebqa):
-        home = Home(mozwebqa)
-        home.go_to_homepage()
-        Assert.false(home.is_user_loggedin)
-        home.login()
-        Assert.true(home.is_user_loggedin)
+        home_page = Home(mozwebqa)
+
+        Assert.false(home_page.is_user_loggedin)
+        home_page.login()
+        Assert.true(home_page.is_user_loggedin)
 
         # log out after logging in
-        home.click_logout_menu_item()
-        Assert.false(home.is_user_loggedin)
+        home_page.click_logout_menu_item()
+        Assert.false(home_page.is_user_loggedin)

@@ -20,11 +20,9 @@ class TestHomePage(BaseTest):
     @pytest.mark.nondestructive
     def test_menu_items(self, mozwebqa):
 
-        home = Home(mozwebqa)
+        home_page = Home(mozwebqa)
 
-        home.go_to_homepage()
-
-        for menu_item in home.header.main_menu:
+        for menu_item in home_page.header.main_menu:
             Assert.contains(menu_item.text, self._menu_items)
 
     @pytest.mark.skip_selenium
@@ -39,7 +37,6 @@ class TestHomePage(BaseTest):
         all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
-    @pytest.mark.skip_selenium
     @pytest.mark.nondestructive
     def test_favicon_exists(self, mozwebqa):
 
