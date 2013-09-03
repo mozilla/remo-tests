@@ -72,7 +72,7 @@ class Base(Page):
             from pages.settings import Settings
             return Settings(self.testsetup)
 
-        def click_people(self):
+        def click_people_link(self):
             self.selenium.find_element(*self._people_menu_locator).click()
             from pages.people import People
             return People(self.testsetup)

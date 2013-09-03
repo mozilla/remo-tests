@@ -18,14 +18,14 @@ class TestPeoplePage:
     def test_people_map_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
 
-        people_page = home_page.header.click_people()
+        people_page = home_page.header.click_people_link()
         Assert.true(people_page.is_people_map_visible)
 
     @pytest.mark.nondestructive
     def test_profile_grid_is_visible(self, mozwebqa):
         home_page = Home(mozwebqa)
 
-        people_page = home_page.header.click_people()
+        people_page = home_page.header.click_people_link()
         Assert.true(people_page.is_profile_grid_visible)
         Assert.true(people_page.is_profile_name_visible)
         Assert.true(people_page.is_profile_image_visible)
@@ -34,7 +34,7 @@ class TestPeoplePage:
     def test_profile_list_view(self, mozwebqa):
         home_page = Home(mozwebqa)
 
-        people_page = home_page.header.click_people()
+        people_page = home_page.header.click_people_link()
         people_page.click_list_view()
         Assert.true(people_page.is_profile_list_visible)
 
@@ -61,7 +61,7 @@ class TestPeoplePage:
         query = u'Reps'
         home_page = Home(mozwebqa)
 
-        people_page = home_page.header.click_people()
+        people_page = home_page.header.click_people_link()
         people_page.filter_for(query)
         Assert.contains(u'Reps', people_page.people_name_text)
 
@@ -69,7 +69,7 @@ class TestPeoplePage:
         query = u'moz_reps_user'
         home_page = Home(mozwebqa)
 
-        people_page = home_page.header.click_people()
+        people_page = home_page.header.click_people_link()
         people_page.filter_for(query)
         profile_page = people_page.click_to_open_profile()
         Assert.contains(query, profile_page.profile_text)
