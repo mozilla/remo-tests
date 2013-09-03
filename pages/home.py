@@ -6,14 +6,23 @@
 
 import requests
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
 
 
 class Home(Base):
 
-    def go_to_homepage(self):
-        self.selenium.get(self.base_url)
+    _page_title = "Mozilla Reps"
+
+    _promo_box_locator = (By.CSS_SELECTOR, '.active > img')
+
+    def __init__(self, testsetup, open_url=True):
+        Base.__init__(self, testsetup)
+        if open_url:
+            self.selenium.get(self.base_url)
+        WebDriverWait(self.selenium, self.timeout).until(lambda s: s.find_element(*self._promo_box_locator))
 
     @property
     def get_favicon_url(self):

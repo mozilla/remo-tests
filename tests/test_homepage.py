@@ -37,7 +37,6 @@ class TestHomePage(BaseTest):
         all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
-    @pytest.mark.skip_selenium
     @pytest.mark.nondestructive
     def test_favicon_exists(self, mozwebqa):
 
