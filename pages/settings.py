@@ -11,9 +11,11 @@ from pages.base import Base
 
 class Settings(Base):
 
-    _report_email_checkbox_locator = (By.CSS_SELECTOR, '#id_receive_email_on_add_comment ~ span')
-    _events_email_checkbox_locator = (By.CSS_SELECTOR, '#id_receive_email_on_add_event_comment ~ span')
-    _save_locator = (By.CSS_SELECTOR, '.hide-on-phones > #save-settings')
+    _report_email_checkbox_locator = (By.ID, 'id_receive_email_on_add_comment')
+    _checked_email_checkbox_locator = (By.CSS_SELECTOR, '#id_receive_email_on_add_comment[checked="checked"]')
+    _events_email_checkbox_locator = (By.ID, 'id_receive_email_on_add_event_comment')
+    _checked_events_checkbox_locator = (By.CSS_SELECTOR, '#id_receive_email_on_add_event_comment[checked="checked"]')
+    _save_locator = (By.ID, 'save-settings')
 
     def click_report_checkbox(self):
         self.selenium.find_element(*self._report_email_checkbox_locator).click()
@@ -28,8 +30,8 @@ class Settings(Base):
 
     @property
     def is_report_checked(self):
-        return 'checked' in self.find_element(*self._report_email_checkbox_locator).get_attribute('class')
+        return self.selenium.find_element(*self._report_email_checkbox_locator).is_selected()
 
     @property
     def is_events_checked(self):
-        return 'checked' in self.find_element(*self._events_email_checkbox_locator).get_attribute('class')
+        return self.selenium.find_element(*self._report_email_checkbox_locator).is_selected()
