@@ -7,9 +7,7 @@
 import pytest
 from unittestzero import Assert
 from pages.link_crawler import LinkCrawler
-
 from pages.home import Home
-from pages.people import People
 
 
 class TestPeoplePage:
