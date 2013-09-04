@@ -9,7 +9,7 @@ import requests
 from icalendar import Calendar
 from unittestzero import Assert
 
-from pages.events import Events
+from pages.home import Home
 from pages.link_crawler import LinkCrawler
 
 
@@ -17,28 +17,32 @@ class TestEventsPage:
 
     @pytest.mark.nondestructive
     def test_events_map_is_visible(self, mozwebqa):
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         Assert.true(events_page.is_events_map_visible)
 
     @pytest.mark.nondestructive
     def test_events_timeline_is_visible(self, mozwebqa):
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         events_page.click_timeline()
         events_page.wait_for_page_to_load()
         Assert.true(events_page.is_events_timeline_visible)
 
     @pytest.mark.nondestructive
     def test_events_table_is_visible(self, mozwebqa):
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         Assert.true(events_page.is_events_table_visible)
 
     @pytest.mark.nondestructive
     def test_advanced_options_are_visible(self, mozwebqa):
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         events_page.click_advanced_options()
         Assert.true(events_page.is_advanced_search_form_visible)
         Assert.true(events_page.is_events_icalendar_export_button_visible)
@@ -46,16 +50,18 @@ class TestEventsPage:
     @pytest.mark.nondestructive
     def test_filter_results_by_owner(self, mozwebqa):
         query = u'John Giannelos'
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         events_page.filter_for(query)
         Assert.equal(u'John Giannelos', events_page.event_profile_owner_text)
 
     @pytest.mark.nondestructive
     def test_filter_results_by_location(self, mozwebqa):
         query = u'Greece'
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         events_page.filter_for(query)
         Assert.contains(u'Greece', events_page.event_profile_location_text)
 
@@ -73,8 +79,9 @@ class TestEventsPage:
 
     @pytest.mark.nondestructive
     def test_events_icalendar_export(self, mozwebqa):
-        events_page = Events(mozwebqa)
-        events_page.go_to_events_page()
+        home_page = Home(mozwebqa)
+
+        events_page = home_page.header.click_events_link()
         response = requests.get(events_page.events_icalendar_export_button_url)
 
         icalendar = Calendar.from_ical(response.text)

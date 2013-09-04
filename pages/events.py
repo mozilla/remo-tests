@@ -25,10 +25,6 @@ class Events(Base):
     _advanced_options_button_locator = (By.ID, 'adv-search-icon-events')
     _advanced_search_form_locator = (By.ID, 'searchform')
 
-    def go_to_events_page(self):
-        self.selenium.get(self.base_url + '/events/')
-        self.is_the_current_page
-
     @property
     def is_events_map_visible(self):
         return self.is_element_visible(*self._events_map_locator)
