@@ -6,45 +6,32 @@
 
 import requests
 import threading
-from bs4 import BeautifulSoup
-from unittestzero import Assert
+import re
+from bs4 import BeautifulSoup as soup
 
 from pages.page import Page
 
 
 class LinkCrawler(Page):
 
-    def collect_links(self, url, relative=True, name=True, **kwargs):
-        """Collects links for given page URL.
-
-        If name is True, then links will be collected for whole page.
-        Use name argument to pass tag name of element.
-        Use kwargs to pass id of element or its class name.
-        Because 'class' is a reserved keyword in Python,
-        you need to pass class as: **{'class': 'container row'}.
-
-        Read more about searching elements with BeautifulSoup.
-        See: http://goo.gl/85BuZ
-        """
-
-        #support for relative URLs
-        if relative:
-            url = '%s%s' % (self.base_url, url)
-
-        #get the page and verify status code is OK
-        r = requests.get(url)
-        Assert.true(
-            r.status_code == requests.codes.ok,
-            u'{0.url} returned: {0.status_code} {0.reason}'.format(r))
-
-        #collect links
-        parsed_html = BeautifulSoup(r.text)
-        urls = [anchor['href'] for anchor in
-                parsed_html.find(name, attrs=kwargs).findAll('a')]
-
-        #prepend base_url to relative links
-        return map(
-            lambda u: u if u.startswith('http') else '%s%s' % (self.base_url, u), urls)
+    def collect_links(self, url, **kwargs):
+        #check if url is relative
+        if url.startswith('/'):
+            url = self.base_url + url
+        #we only want links that begin with / or http
+        link_regex = re.compile('^http|/')
+        attrs = {'href': link_regex}
+        response = requests.get(url, verify=False)
+        html = soup(response.content)
+        if kwargs:
+            links = [anchor['href'] for anchor in html.find(attrs=kwargs).findAll('a', attrs)]
+        else:
+            links = [anchor['href'] for anchor in html.findAll('a', attrs)]
+        absolute_links = map(
+            lambda u:
+            u if u.startswith('http')
+            else '%s%s' % (self.base_url, u), links)
+        return absolute_links
 
     def verify_status_code_is_ok(self, url):
         if not self.should_verify_url(url):

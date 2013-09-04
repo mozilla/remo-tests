@@ -24,7 +24,7 @@ class TestFAQPage:
     @pytest.mark.nondestructive
     def test_that_links_in_the_faq_page_return_200_code(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
-        urls = crawler.collect_links('/faq/', id='wrapper')
+        urls = crawler.collect_links('/faq/')
 
         Assert.greater(len(urls), 0,
             'The link crawler did not find any urls to crawl')

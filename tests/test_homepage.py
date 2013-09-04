@@ -29,7 +29,7 @@ class TestHomePage(BaseTest):
     @pytest.mark.nondestructive
     def test_that_links_in_the_home_page_return_200_code(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
-        urls = crawler.collect_links('/', id='wrapper')
+        urls = crawler.collect_links('/')
 
         Assert.greater(len(urls), 0,
             u'The link crawler did not find any urls to crawl')
