@@ -30,7 +30,7 @@ class Events(Base):
         Base.__init__(self, testsetup)
         # Wait for the page to be populated
         WebDriverWait(self.selenium, self.timeout).until(
-                lambda s: len(s.find_element(*self._events_result_locator))
+                lambda s: len(s.find_elements(*self._events_result_locator)))
 
     @property
     def is_events_map_visible(self):
