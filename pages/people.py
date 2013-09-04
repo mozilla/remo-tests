@@ -23,11 +23,6 @@ class People(Base):
     _profile_list_locator = (By.ID, 'profiles_listview')
     _list_view_button_locator = (By.ID, 'listviewbutton')
 
-    def go_to_people_page(self):
-        self.selenium.get(self.base_url + '/people/')
-        self.is_the_current_page
-        self.wait_for_page_to_load()
-
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._people_filter_locator)
         element.send_keys(search_term)

@@ -18,9 +18,6 @@ class FAQ(Base):
         Base.__init__(self, testsetup)
         self.wait_for_element_visible(*self._faq_sidebar)
 
-    def go_to_faqpage(self):
-        self.selenium.get(self.testsetup.base_url + '/faq/')
-
     @property
     def is_faq_sidebar_visible(self):
         return self.is_element_visible(*self._faq_sidebar)
