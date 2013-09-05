@@ -18,8 +18,8 @@ class TestLabsPage:
         crawler = LinkCrawler(mozwebqa)
         urls = crawler.collect_links('/labs/', id='wrapper')
 
-        Assert.greater( len(urls), 0,
+        Assert.greater(len(urls), 0,
             'The link crawler did not find any urls to crawl')
 
-        all_ok, bad_urls  = crawler.verify_status_codes_are_ok(urls)
+        all_ok, bad_urls = crawler.verify_status_codes_are_ok(urls)
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
