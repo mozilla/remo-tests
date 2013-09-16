@@ -69,7 +69,7 @@ class TestEventsPage:
     @pytest.mark.nondestructive
     def test_that_links_in_the_events_page_return_200_code(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
-        urls = crawler.collect_links('/events/', id='wrapper')
+        urls = crawler.collect_links('/events/')
 
         Assert.greater(len(urls), 0,
             'The link crawler did not find any urls to crawl')
@@ -82,7 +82,7 @@ class TestEventsPage:
         home_page = Home(mozwebqa)
 
         events_page = home_page.header.click_events_link()
-        response = requests.get(events_page.events_icalendar_export_button_url)
+        response = requests.get(events_page.events_icalendar_export_button_url, verify=False)
 
         icalendar = Calendar.from_ical(response.text)
         icalendar_events_count = len(filter(lambda c: c.name == 'VEVENT', icalendar.walk()))

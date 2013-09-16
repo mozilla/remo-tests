@@ -16,7 +16,7 @@ class TestLabsPage:
     @pytest.mark.nondestructive
     def test_that_links_in_the_labs_page_return_200_code(self, mozwebqa):
         crawler = LinkCrawler(mozwebqa)
-        urls = crawler.collect_links('/labs/', id='wrapper')
+        urls = crawler.collect_links('/labs/')
 
         Assert.greater(len(urls), 0,
             'The link crawler did not find any urls to crawl')
