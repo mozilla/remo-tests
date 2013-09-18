@@ -7,7 +7,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
-from pages.page import Page, PageRegion
+from pages.page import Page
 
 
 class Base(Page):
@@ -76,12 +76,3 @@ class Base(Page):
             self.selenium.find_element(*self._people_menu_locator).click()
             from pages.people import People
             return People(self.testsetup)
-
-        class MainMenu(PageRegion):
-
-            @property
-            def text(self):
-                return self._root_element.text
-
-            def click(self):
-                self._root_element.click()
