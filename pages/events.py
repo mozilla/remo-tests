@@ -33,7 +33,7 @@ class Events(Base):
                 lambda s: len(s.find_elements(*self._events_result_locator)))
 
     def go_to_event_detail_page(self):
-        self.selenium.get(self.base_url + '/e/editevent/')
+        self.selenium.get(self.base_url + '/e/eventedit/')
 
     @property
     def is_events_map_visible(self):
