@@ -12,8 +12,8 @@ from pages.page import Page
 
 class Base(Page):
 
-    _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
-    _logout_menu_item_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href*="logout"]')
+    _browserid_login_locator = (By.CSS_SELECTOR, '.browserid-login > span')
+    _logout_menu_item_locator = (By.CSS_SELECTOR, '.hide-for-small .browserid-logout')
     _page_loader_locator = (By.ID, 'canvasLoader')
 
     @property
@@ -49,7 +49,7 @@ class Base(Page):
         _events_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/events/"]')
         _faq_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/faq/"]')
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
-        _settings_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href$="/settings/"]')
+        _settings_locator = (By.CSS_SELECTOR, '.hide-for-small > a[href$="/settings/"]')
         _people_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/people/"]')
         _planet_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="planet"]')
         _wiki_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="wiki"]')

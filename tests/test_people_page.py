@@ -55,6 +55,7 @@ class TestPeoplePage:
 
     @pytest.mark.nondestructive
     def test_filter_results_by_name(self, mozwebqa):
+
         # Verify name in search matches query results
         query = u'Reps'
         home_page = Home(mozwebqa)
