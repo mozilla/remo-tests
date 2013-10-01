@@ -45,6 +45,7 @@ class Base(Page):
 
     class Header(Page):
 
+        _account_locator = (By.ID, 'base-displayname')
         _events_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/events/"]')
         _faq_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/faq/"]')
         _main_menu_locator = (By.CSS_SELECTOR, '#navigation-box > ul.nav-bar > li > a')
@@ -76,3 +77,8 @@ class Base(Page):
             self.selenium.find_element(*self._people_menu_locator).click()
             from pages.people import People
             return People(self.testsetup)
+
+        def click_profile(self):
+            self.selenium.find_element(*self._account_locator).click()
+            from pages.profile import Profile
+            return Profile(self.testsetup)
