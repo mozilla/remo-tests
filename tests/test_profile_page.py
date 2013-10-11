@@ -14,6 +14,7 @@ from pages.home import Home
 
 class TestProfilePage:
 
+    @pytest.mark.xfail(reason="Bug 925511 - Unable to log in on dev and stage")
     def test_edit_profile_fields(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()

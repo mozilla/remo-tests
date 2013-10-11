@@ -12,7 +12,7 @@ from pages.page import Page
 
 class Base(Page):
 
-    _browserid_login_locator = (By.CSS_SELECTOR, '#browserid')
+    _browserid_login_locator = (By.CSS_SELECTOR, '.browserid-login > span')
     _logout_menu_item_locator = (By.CSS_SELECTOR, '.hide-on-phones > a[href*="logout"]')
     _page_loader_locator = (By.ID, 'canvasLoader')
 
