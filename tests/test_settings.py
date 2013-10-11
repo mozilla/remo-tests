@@ -12,6 +12,7 @@ from pages.home import Home
 
 class TestSettings:
 
+    @pytest.mark.xfail(reason="Bug 925511 - Unable to log in on dev and stage")
     @pytest.mark.credentials
     def test_email_settings(self, mozwebqa):
         home_page = Home(mozwebqa)
