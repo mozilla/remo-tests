@@ -12,7 +12,6 @@ from pages.home import Home
 
 class TestLogInOut:
 
-    @pytest.mark.xfail(reason="Bug 925511 - Unable to log in on dev and stage")
     @pytest.mark.credentials
     @pytest.mark.nondestructive
     def test_login_logout(self, mozwebqa):
