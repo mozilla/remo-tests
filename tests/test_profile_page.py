@@ -4,6 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import pytest
 import random
 import string
 from copy import deepcopy
@@ -14,7 +15,6 @@ from pages.home import Home
 
 class TestProfilePage:
 
-    @pytest.mark.xfail(reason="Bug 927806 - [dev] Default avatar is not visible on profile page")
     def test_edit_profile_fields(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
