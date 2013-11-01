@@ -53,7 +53,6 @@ class TestPeoplePage:
             0, len(bad_urls),
             u'%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
-    @pytest.mark.xfail(reason="Bug 927806 - [dev] Default avatar is not visible on profile page")
     @pytest.mark.nondestructive
     def test_filter_results_by_name(self, mozwebqa):
 
