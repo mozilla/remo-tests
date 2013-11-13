@@ -16,7 +16,6 @@ from pages.home import Home
 class TestProfilePage:
 
     @pytest.mark.credentials
-    @pytest.mark.nondestructive
     def test_edit_profile_fields(self, mozwebqa):
         home_page = Home(mozwebqa)
         home_page.login()
