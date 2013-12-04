@@ -54,3 +54,61 @@ class TestProfilePage:
                 user_edit_page.profile_fields[i].type_value(initial_value[i])
 
             user_edit_page.click_save_profile()
+
+    @pytest.mark.credentials
+    def test_user_can_create_report(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        home_page.login()
+
+        profile_page = home_page.header.click_profile()
+
+        if profile_page.editable_monthly_reports_present:
+            edit_report_page = profile_page.click_random_editable_monthly_reports()
+            fields_no = len(edit_report_page.report_fields) - 1
+            random_text = "test%s" % random.choice(string.lowercase)
+
+            # enter report values
+            for i in range(0, fields_no):
+                edit_report_page.report_fields[i].clear_field()
+                edit_report_page.report_fields[i].type_value(random_text)
+
+            test_link = 'http://test.com'
+            edit_report_page.set_input_text_for('event_link', test_link)
+            edit_report_page.set_input_text_for('activity_link', test_link)
+            edit_report_page.set_input_text_for('event_name', random_text)
+            edit_report_page.set_input_text_for('activity_description', random_text)
+            value = '2'
+            edit_report_page.select_type_of_participation(value)
+
+            edit_report_page.click_save_report_button()
+
+            Assert.true(edit_report_page.is_success_message_visible)
+            Assert.contains('Report successfully created.', edit_report_page.success_message_text)
+
+        else:
+            edit_report_page = profile_page.click_random_existing_monthly_reports()
+            edit_report_page.click_edit_report_button()
+            edit_report_page.delete_report()
+            Assert.true(edit_report_page.is_success_message_visible)
+            Assert.contains('Report successfully deleted.', edit_report_page.success_message_text)
+
+            profile_page.click_random_editable_monthly_reports()
+            fields_no = len(edit_report_page.report_fields) - 1
+            random_text = "test%s" % random.choice(string.lowercase)
+
+            # enter report values
+            for i in range(0, fields_no):
+                edit_report_page.report_fields[i].clear_field()
+                edit_report_page.report_fields[i].type_value(random_text)
+
+            test_link = 'http://test.com'
+            edit_report_page.set_input_text_for('event_link', test_link)
+            edit_report_page.set_input_text_for('activity_link', test_link)
+            edit_report_page.set_input_text_for('event_name', random_text)
+            edit_report_page.set_input_text_for('activity_description', random_text)
+            value = '3'
+            edit_report_page.select_type_of_participation(value)
+
+            edit_report_page.click_save_report_button()
+            Assert.true(edit_report_page.is_success_message_visible)
+            Assert.contains('Report successfully created.', edit_report_page.success_message_text)
