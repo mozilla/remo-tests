@@ -80,7 +80,7 @@ To run tests which require user login:
         py.test --driver=firefox --credentials=./credentials.yaml tests/test_login_logout.py 
 
 [testuser]:http://personatestuser.org/
-[remo]:https://mozillians-dev.allizom.org/en-US/
+[mozillians]:https://mozillians-dev.allizom.org/en-US/
 
 
 Writing Tests
