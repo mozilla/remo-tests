@@ -73,14 +73,14 @@ __note__
 To run tests which require user login:
 
 1. Obtain credentials for a test user from [personatestuser][testuser]
-2. Create a test user profile on the [remo-dev][remo] website
+2. Create a test user profile on the [mozillians-dev][remo] website
 3. Join #mozwebqa and ask for getting the testuser profile vouched
 4. Specify the path to credentials file like:
 
         py.test --driver=firefox --credentials=./credentials.yaml tests/test_login_logout.py 
 
 [testuser]:http://personatestuser.org/
-[remo]:https://reps-dev.allizom.org/
+[remo]:https://mozillians-dev.allizom.org/en-US/
 
 
 Writing Tests
