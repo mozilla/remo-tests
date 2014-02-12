@@ -73,7 +73,7 @@ __note__
 To run tests which require user login:
 
 1. Obtain credentials for a test user from [personatestuser][testuser]
-2. Create a test user profile on the [mozillians-dev][remo] website
+2. Create a test user profile on the [mozillians-dev][mozillians] website
 3. Join #mozwebqa and ask for getting the testuser profile vouched
 4. Specify the path to credentials file like:
 
