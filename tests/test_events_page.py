@@ -78,6 +78,9 @@ class TestEventsPage:
         Assert.true(all_ok, '%s bad links found. ' % len(bad_urls) + ', '.join(bad_urls))
 
     @pytest.mark.nondestructive
+    @pytest.mark.xfail('"-dev.allizom" in config.getvalue("base_url")',
+                       reason='Bug 967392 - [dev] Discrepancies between the number of event displayed'
+                              ' on the site and the ones present in the ICAL export')
     def test_events_icalendar_export(self, mozwebqa):
         home_page = Home(mozwebqa)
 
