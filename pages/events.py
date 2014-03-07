@@ -8,12 +8,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
-
+from pages.create_event import CreateEvent
 
 class Events(Base):
 
     _page_title = 'Mozilla Reps - Events'
-
+    _create_event_button_locator = (By.ID, 'events-create-button')
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
     _events_map_locator = (By.ID, 'map')
@@ -82,6 +82,10 @@ class Events(Base):
 
     def click_advanced_options(self):
         self.selenium.find_element(*self._advanced_options_button_locator).click()
+
+    def click_create_event_button(self, mozwebqa):
+        self.selenium.find_element(*self._create_event_button_locator).click()
+        return CreateEvent(mozwebqa)
 
     def click_timeline(self):
         self.selenium.find_element(*self._events_timeline_button_locator).click()
