@@ -39,7 +39,6 @@ class CreateEvent(Base):
     _event_venue_locator = (By.ID, 'id_venue')
     _event_venue_map_button_locator = (By.CSS_SELECTOR, '[data-reveal-id="map-point"]')
     _event_venue_map_point_locator = (By.CSS_SELECTOR, 'img.leaflet-tile:nth-child(4)')
-    _event_venue_map_data = (By.ID, 'lat-temp')
     _event_venue_map_save_button_locator = (By.CSS_SELECTOR, 'button.update:nth-child(1)')
     _save_event_button_locator = (By.CSS_SELECTOR, 'div.hide-for-small:nth-child(2) > button:nth-child(1)')
 
