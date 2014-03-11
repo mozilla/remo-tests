@@ -18,7 +18,7 @@ class CreateEvent(Base):
     _country_locator = (By.CSS_SELECTOR, 'id_country.current a')
     _event_category_locator = (By.CSS_SELECTOR, '[data-reveal-id="category-modal"]')
     _event_category_modal_save_locator = (By.CSS_SELECTOR, 'button.small:nth-child(5)')
-    _event_choose_categories_locator = (By.CSS_SELECTOR, '#Addons-bit')
+    _event_choose_categories_locator = (By.ID, 'Addons-bit')
     _event_city_locator = (By.ID, 'id_city')
     _event_country_locator = (By.ID, 'id_country')
     _event_description_locator = (By.ID, 'id_description')
