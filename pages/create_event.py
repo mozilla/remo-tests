@@ -6,6 +6,7 @@
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+import random
 from selenium.webdriver.support.ui import WebDriverWait
 from time import time,sleep
 
@@ -32,7 +33,9 @@ class CreateEvent(Base):
     _event_owner_locator = (By.CSS_SELECTOR, 'id_owner_form.current a')
     _event_start_day_locator = (By.ID, 'id_start_form_0_day')
     _event_start_month_locator = (By.ID, 'id_start_form_0_month')
-    _event_start_year_locator = (By.ID, 'id_start_form_0_year')
+    _select_start_year_locator = (By.ID, 'id_start_form_0_year')
+    _selected_start_year_locator = (By.ID, 'id_start_form_0_year > option[selected="selected"]')
+    _start_year_locator = (By.CSS_SELECTOR, '#id_start_form_0_year > option')
     _event_success_locator = (By.ID, 'id_metrics-0-outcome')
     _event_success2_locator = (By.ID, 'id_metrics-1-outcome')
     _event_timezone_locator = (By.CSS_SELECTOR, 'id_timezone.current a')
@@ -43,6 +46,14 @@ class CreateEvent(Base):
     _save_event_button_locator = (By.CSS_SELECTOR, 'div.hide-for-small:nth-child(2) > button:nth-child(1)')
 
 
+    @property
+    def start_year(self):
+        return self.selenium.find_element(*self._selected_start_year_locator).text
+
+    @property
+    def years_values_start(self):
+        return [year.get_attribute('value') for year in self.selenium.find_elements(*self._start_year_locator)]
+
     def click_save_event_button(self, mozwebqa):
         self.selenium.find_element(*self._save_event_button_locator).click()
         return EventDetail(mozwebqa)
@@ -52,7 +63,7 @@ class CreateEvent(Base):
         element.clear()
         element.send_keys(event_city)
 
-    def set_event_country(self, option_country):
+    def select_event_country(self, option_country):
         element = self.selenium.find_element(*self._event_country_locator)
         select = Select(element)
         select.select_by_value(option_country)
@@ -100,37 +111,37 @@ class CreateEvent(Base):
         self.selenium.find_element(*self._event_venue_map_point_locator).click
         self.selenium.find_element(*self._event_venue_map_save_button_locator).click()
 
-    def set_start_month(self, option_month):
+    def select_start_month(self, option_month):
         element = self.selenium.find_element(*self._event_start_month_locator)
         select = Select(element)
         select.select_by_value(option_month)
 
-    def set_start_day(self, option_day):
+    def select_start_day(self, option_day):
         element = self.selenium.find_element(*self._event_start_day_locator)
         select = Select(element)
         select.select_by_value(option_day)
 
-    def set_start_year(self, option_year):
+    def select_start_year(self, option_year):
         element = self.selenium.find_element(*self._event_start_year_locator)
         select = Select(element)
         select.select_by_value(option_year)
 
-    def set_end_month(self, option_month):
+    def select_end_month(self, option_month):
         element = self.selenium.find_element(*self._event_end_month_locator)
         select = Select(element)
         select.select_by_value(option_month)
 
-    def set_end_day(self, option_day):
+    def select_end_day(self, option_day):
         element = self.selenium.find_element(*self._event_end_day_locator)
         select = Select(element)
         select.select_by_value(option_day)
 
-    def set_end_year(self, option_year):
+    def select_end_year(self, option_year):
         element = self.selenium.find_element(*self._event_end_year_locator)
         select = Select(element)
         select.select_by_value(option_year)
 
-    def set_estimated_attendance(self, option_size):
+    def select_estimated_attendance(self, option_size):
         element = self.selenium.find_element(*self._event_estimated_attendance_locator)
         select = Select(element)
         select.select_by_value(option_size)
@@ -143,3 +154,11 @@ class CreateEvent(Base):
 
         self.selenium.find_element(*self._event_choose_categories_locator).click()
         self.selenium.find_element(*self._event_category_modal_save_locator).click()
+
+    def select_random_start_year(self):
+        return self.select_start_year(random.choice(self.years_values_start[1:]))
+
+    def select_start_year(self, option_year):
+        element = self.selenium.find_element(*self._select_start_year_locator)
+        select = Select(element)
+        select.select_by_value(option_year)
