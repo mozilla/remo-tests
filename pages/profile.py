@@ -20,8 +20,6 @@ class Profile(Base):
     _user_avatar_locator = (By.ID, 'profiles-view-avatar')
     _edit_profile_button_locator = (By.CSS_SELECTOR, '.small.button')
     _update_message_locator = (By.CSS_SELECTOR, '.alert-box.success')
-    _editable_monthly_reports_locator = (By.CSS_SELECTOR, '.mreports > li.editable a')
-    _existing_monthly_reports_locator = (By.CSS_SELECTOR, '.mreports > li.exists a')
 
     def __init__(self, testsetup):
         Base.__init__(self, testsetup)
@@ -39,46 +37,71 @@ class Profile(Base):
     def is_update_message_visible(self):
         return self.is_element_visible(*self._update_message_locator)
 
-    @property
-    def editable_monthly_reports_present(self):
-        return self.is_element_present(*self._editable_monthly_reports_locator)
+class AddReport(Base):
+    
+    _page_title = 'Mozilla Reps - Add Report'
 
-    def click_random_editable_monthly_reports(self):
-        random.choice(self.find_elements(*self._editable_monthly_reports_locator)).click()
-        return EditReport(self.testsetup)
-
-    def click_random_existing_monthly_reports(self):
-        random.choice(self.find_elements(*self._existing_monthly_reports_locator)).click()
-        return EditReport(self.testsetup)
-
-
-class EditReport(Base):
-
-    _page_title = 'Mozilla Reps - Edit Report'
-
-    _report_fields_locator = (By.CSS_SELECTOR, 'textarea.flat')
-    _save_report_button_locator = (By.CSS_SELECTOR, '.reports-submit-button')
-    _success_message_locator = (By.CSS_SELECTOR, '.alert-box.success')
-    _activity_description_locator = (By.CSS_SELECTOR, '.tip-right[name="reportlink_set-0-description"]')
+    _save_report_button_locator = (By.CSS_SELECTOR, '.small.button.confirm')
+    _activity_description_locator = (By.ID, 'id_activity_description')
     _event_name_locator = (By.CSS_SELECTOR, 'input.tip-left[name="reportevent_set-0-name"]')
-    _type_of_participation_locator = (By.ID, 'id_reportevent_set-0-participation_type')
+    _activity_type_locator = (By.CSS_SELECTOR, '#id_activity')
+    _campaign_locator = (By.ID, 'id_campaign')
     _event_link_locator = (By.CSS_SELECTOR, 'input.tip-left[name="reportevent_set-0-link"]')
-    _activity_link_locator = (By.CSS_SELECTOR, 'input.tip-right[name="reportlink_set-0-link"]')
-    _edit_report_button_locator = (By.CSS_SELECTOR, '.button[href*="edit"]')
-    _delete_report_button_locator = (By.CSS_SELECTOR, '.button.alert[data-reveal-id="delete-report"]')
+    _activity_url_locator = (By.ID, 'id_link')
+    _url_description_locator = (By.ID, 'id_link_description')
+    _contribution_area_locator = (By.ID, 'id_functional_areas')
+    _delete_report_button_locator = (By.CSS_SELECTOR, '.small.button.alert')
     _delete_report_warning_locator = (By.ID, 'delete-report')
     _popup_delete_button_locator = (By.CSS_SELECTOR, '.large.button.alert')
+    _event_venue_locator = (By.ID, 'id_venue')
+    _event_venue_map_button_locator = (By.CSS_SELECTOR, '[data-reveal-id="map-point"]')
+    _event_venue_map_point_locator = (By.CSS_SELECTOR, 'img.leaflet-tile:nth-child(4)')
+    _event_venue_map_save_button_locator = (By.CSS_SELECTOR, 'button.update:nth-child(1)')
+
+    def select_activity(self, option_value):
+        element = self.selenium.find_element(*self._activity_type_locator)
+        select = Select(element)
+        select.select_by_value(option_value)
+
+    def select_campaign(self, option_value):
+        element = self.selenium.find_element(*self._campaign_locator)
+        select = Select(element)
+        select.select_by_value(option_value)
+
+    def select_contribution_area(self, option_text):
+        element = self.selenium.find_element(*self._contribution_area_locator)
+        select = Select(element)
+        select.select_by_visible_text(option_text)
+
+    def select_event_place(self):
+        self.selenium.find_element(*self._event_venue_map_button_locator).click()
+        for handle in self.selenium.window_handles:
+            self.selenium.switch_to_window(handle)
+            WebDriverWait(self.selenium, self.timeout).until(lambda s: s.title)
+        self.selenium.find_element(*self._event_venue_map_point_locator).click
+        self.selenium.find_element(*self._event_venue_map_save_button_locator).click()
+
+    def type_url_for_activity(self, url):
+        self.selenium.find_element(*self._activity_url_locator).send_keys(url)
+
+    def type_url_description(self, description):
+        self.selenium.find_element(*self._url_description_locator).send_keys(description)
+
+    def type_activity_description(self, description):
+        self.selenium.find_element(*self._activity_description_locator).send_keys(description)
 
     def click_save_report_button(self):
         self.find_element(*self._save_report_button_locator).click()
+        return ViewReport(self.testsetup)
 
-    def click_edit_report_button(self):
-        self.find_element(*self._edit_report_button_locator).click()
+class ViewReport(Base):
 
-    def delete_report(self):
-        self.find_element(*self._delete_report_button_locator).click()
-        WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_element_visible(*self._delete_report_warning_locator))
-        self.find_element(*self._popup_delete_button_locator).click()
+    _edit_report_locator = (By.XPATH, './/*[@id="wrapper"]/div/main/div[1]/div[2]/a')
+    _success_message_locator = (By.CSS_SELECTOR, '.alert-box.success')
+
+    def click_edit_report(self):
+        self.selenium.find_element(*self._edit_report_locator).click()
+        return EditReport(self.testsetup)
 
     @property
     def is_success_message_visible(self):
@@ -88,33 +111,19 @@ class EditReport(Base):
     def success_message_text(self):
         return self.find_element(*self._success_message_locator).text
 
-    def set_input_text_for(self, for_field, value):
-        input_field = self.selenium.find_element(*getattr(self, '_%s_locator' % for_field))
-        input_field.clear()
-        input_field.send_keys(value)
+class EditReport(AddReport):
 
-    def select_type_of_participation(self, option_value):
-        element = self.selenium.find_element(*self._type_of_participation_locator)
-        select = Select(element)
-        select.select_by_value(option_value)
+    _page_title = 'Mozilla Reps - Edit Report'
 
-    @property
-    def report_fields(self):
-        return [self.ReportSection(self.testsetup, web_element)
-                for web_element in self.selenium.find_elements(*self._report_fields_locator)]
+    _delete_report_button_locator = (By.CSS_SELECTOR, '.small.button.alert')
+    _delete_report_warning_locator = (By.ID, 'ng-delete-report')
+    _popup_delete_button_locator = (By.CSS_SELECTOR, '.large.button.alert')
 
-    class ReportSection(Page):
-
-        def __init__(self, testsetup, element):
-            Page.__init__(self, testsetup)
-            self._root_element = element
-
-        def type_value(self, value):
-            self._root_element.send_keys(value)
-
-        def clear_field(self):
-            self._root_element.clear()
-
+    def delete_report(self):
+        self.find_element(*self._delete_report_button_locator).click()
+        WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_element_visible(*self._delete_report_warning_locator))
+        self.find_element(*self._popup_delete_button_locator).click()
+        return ViewReport(self.testsetup)
 
 class EditProfile(Base):
 
