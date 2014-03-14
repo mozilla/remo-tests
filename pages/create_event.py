@@ -8,7 +8,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 import random
 from selenium.webdriver.support.ui import WebDriverWait
-from time import time,sleep
 
 from pages.base import Base
 from pages.event_detail import EventDetail
@@ -16,7 +15,6 @@ from pages.event_detail import EventDetail
 
 class CreateEvent(Base):
 
-    _country_locator = (By.CSS_SELECTOR, 'id_country.current a')
     _event_category_locator = (By.CSS_SELECTOR, '[data-reveal-id="category-modal"]')
     _event_category_modal_save_locator = (By.CSS_SELECTOR, 'button.small:nth-child(5)')
     _event_choose_categories_locator = (By.ID, 'Addons-bit')
@@ -30,7 +28,6 @@ class CreateEvent(Base):
     _event_metric_locator = (By.ID, 'id_metrics-0-title')
     _event_metric2_locator = (By.ID, 'id_metrics-1-title')
     _event_name_locator = (By.ID, 'id_name')
-    _event_owner_locator = (By.CSS_SELECTOR, 'id_owner_form.current a')
     _event_start_day_locator = (By.ID, 'id_start_form_0_day')
     _event_start_month_locator = (By.ID, 'id_start_form_0_month')
     _select_start_year_locator = (By.ID, 'id_start_form_0_year')
