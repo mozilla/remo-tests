@@ -37,8 +37,9 @@ class Profile(Base):
     def is_update_message_visible(self):
         return self.is_element_visible(*self._update_message_locator)
 
+
 class AddReport(Base):
-    
+
     _page_title = 'Mozilla Reps - Add Report'
 
     _save_report_button_locator = (By.CSS_SELECTOR, '.small.button.confirm')
@@ -55,7 +56,7 @@ class AddReport(Base):
     _popup_delete_button_locator = (By.CSS_SELECTOR, '.large.button.alert')
     _event_venue_locator = (By.ID, 'id_venue')
     _event_venue_map_button_locator = (By.CSS_SELECTOR, '[data-reveal-id="map-point"]')
-    _event_venue_map_point_locator = (By.CSS_SELECTOR, 'img.leaflet-tile:nth-child(4)')
+    _event_venue_map_point_locator = (By.CSS_SELECTOR, 'img.leaflet-tile:nth-child(2)')
     _event_venue_map_save_button_locator = (By.CSS_SELECTOR, 'button.update:nth-child(1)')
 
     def select_activity(self, option_value):
@@ -78,7 +79,7 @@ class AddReport(Base):
         for handle in self.selenium.window_handles:
             self.selenium.switch_to_window(handle)
             WebDriverWait(self.selenium, self.timeout).until(lambda s: s.title)
-        self.selenium.find_element(*self._event_venue_map_point_locator).click
+        self.selenium.find_element(*self._event_venue_map_point_locator).click()
         self.selenium.find_element(*self._event_venue_map_save_button_locator).click()
 
     def type_url_for_activity(self, url):
@@ -94,9 +95,10 @@ class AddReport(Base):
         self.find_element(*self._save_report_button_locator).click()
         return ViewReport(self.testsetup)
 
+
 class ViewReport(Base):
 
-    _edit_report_locator = (By.XPATH, './/*[@id="wrapper"]/div/main/div[1]/div[2]/a')
+    _edit_report_locator = (By.CSS_SELECTOR, 'div[class*="hide"] a[href*="edit"]')
     _success_message_locator = (By.CSS_SELECTOR, '.alert-box.success')
 
     def click_edit_report(self):
@@ -111,6 +113,7 @@ class ViewReport(Base):
     def success_message_text(self):
         return self.find_element(*self._success_message_locator).text
 
+
 class EditReport(AddReport):
 
     _page_title = 'Mozilla Reps - Edit Report'
@@ -124,6 +127,7 @@ class EditReport(AddReport):
         WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_element_visible(*self._delete_report_warning_locator))
         self.find_element(*self._popup_delete_button_locator).click()
         return ViewReport(self.testsetup)
+
 
 class EditProfile(Base):
 
