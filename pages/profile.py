@@ -4,11 +4,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import random
-
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.select import Select
 
 from pages.base import Base
 from pages.page import Page
@@ -36,6 +32,7 @@ class Profile(Base):
     @property
     def is_update_message_visible(self):
         return self.is_element_visible(*self._update_message_locator)
+
 
 class EditProfile(Base):
 

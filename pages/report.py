@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.select import Select
 
 from pages.base import Base
-from pages.page import Page
+
 
 class AddReport(Base):
 
@@ -68,6 +68,7 @@ class AddReport(Base):
         self.find_element(*self._save_report_button_locator).click()
         return ViewReport(self.testsetup)
 
+
 class ViewReport(Base):
 
     _edit_report_locator = (By.CSS_SELECTOR, 'div[class*="hide"] a[href*="edit"]')
@@ -99,4 +100,3 @@ class EditReport(AddReport):
         WebDriverWait(self.selenium, self.timeout).until(lambda s: self.is_element_visible(*self._delete_report_warning_locator))
         self.find_element(*self._popup_delete_button_locator).click()
         return ViewReport(self.testsetup)
-
