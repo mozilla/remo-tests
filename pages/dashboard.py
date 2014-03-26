@@ -21,5 +21,5 @@ class Dashboard(Base):
     def click_add_new_report(self):
         self.selenium.find_element(*self._add_report_locator).click()
         self.selenium.switch_to_window(self.selenium.window_handles[1])
-        from pages.profile import AddReport
+        from pages.report import AddReport
         return AddReport(self.testsetup)
