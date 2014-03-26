@@ -53,6 +53,7 @@ class Base(Page):
         _people_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/people/"]')
         _planet_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="planet"]')
         _wiki_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href*="wiki"]')
+        _dashboard_menu_locator = (By.CSS_SELECTOR, '#navigation-box li > a[href$="/dashboard/"]')
 
         @property
         def main_menu(self):
@@ -82,3 +83,8 @@ class Base(Page):
             self.selenium.find_element(*self._account_locator).click()
             from pages.profile import Profile
             return Profile(self.testsetup)
+
+        def click_dashboard(self):
+            self.selenium.find_element(*self._dashboard_menu_locator).click()
+            from pages.dashboard import Dashboard
+            return Dashboard(self.testsetup)

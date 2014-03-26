@@ -12,7 +12,14 @@ from pages.base import Base
 class Dashboard(Base):
 
     _success_message_locator = (By.CSS_SELECTOR, '.alert-box.success')
+    _add_report_locator = (By.CSS_SELECTOR, '.small.button[href="/reports/new/"]')
 
     @property
     def is_success_message_visible(self):
         return self.is_element_visible(*self._success_message_locator)
+
+    def click_add_new_report(self):
+        self.selenium.find_element(*self._add_report_locator).click()
+        self.selenium.switch_to_window(self.selenium.window_handles[1])
+        from pages.report import AddReport
+        return AddReport(self.testsetup)
