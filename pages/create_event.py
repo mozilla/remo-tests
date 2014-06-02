@@ -16,8 +16,8 @@ from pages.event_detail import EventDetail
 class CreateEvent(Base):
 
     _event_category_locator = (By.CSS_SELECTOR, '[data-reveal-id="category-modal"]')
-    _event_category_modal_save_locator = (By.CSS_SELECTOR, 'button.small:nth-child(5)')
-    _event_choose_categories_locator = (By.ID, 'Addons-bit')
+    _event_category_modal_save_locator = (By.CSS_SELECTOR, '#category-modal > button:nth-child(5)')
+    _event_choose_categories_locator = (By.ID, 'Apps-bit')
     _event_city_locator = (By.ID, 'id_city')
     _event_country_locator = (By.ID, 'id_country')
     _event_description_locator = (By.ID, 'id_description')
@@ -25,16 +25,19 @@ class CreateEvent(Base):
     _event_end_month_locator = (By.ID, 'id_end_form_0_month')
     _event_end_year_locator = (By.ID, 'id_end_form_0_year')
     _event_estimated_attendance_locator = (By.ID, 'id_estimated_attendance')
-    _event_metric_locator = (By.ID, 'id_metrics-0-title')
-    _event_metric2_locator = (By.ID, 'id_metrics-1-title')
+    _event_choose_goals_locator = (By.ID, 'Enable communities-bit')
+    _event_goals_locator = (By.CSS_SELECTOR, '[data-reveal-id="goals-modal"]')
+    _event_goals_modal_save_locator = (By.CSS_SELECTOR, '#goals-modal > button:nth-child(5)')
+    _event_metric1_locator = (By.ID, 'id_eventmetricoutcome_set-0-metric')
+    _event_metric2_locator = (By.ID, 'id_eventmetricoutcome_set-1-metric')
     _event_name_locator = (By.ID, 'id_name')
     _event_start_day_locator = (By.ID, 'id_start_form_0_day')
     _event_start_month_locator = (By.ID, 'id_start_form_0_month')
     _select_start_year_locator = (By.ID, 'id_start_form_0_year')
     _selected_start_year_locator = (By.ID, 'id_start_form_0_year > option[selected="selected"]')
     _start_year_locator = (By.CSS_SELECTOR, '#id_start_form_0_year > option')
-    _event_success_locator = (By.ID, 'id_metrics-0-outcome')
-    _event_success2_locator = (By.ID, 'id_metrics-1-outcome')
+    _event_success_locator = (By.ID, 'id_eventmetricoutcome_set-0-outcome')
+    _event_success2_locator = (By.ID, 'id_eventmetricoutcome_set-1-outcome')
     _event_timezone_locator = (By.CSS_SELECTOR, 'id_timezone.current a')
     _event_venue_locator = (By.ID, 'id_venue')
     _event_venue_map_button_locator = (By.CSS_SELECTOR, '[data-reveal-id="map-point"]')
@@ -71,14 +74,14 @@ class CreateEvent(Base):
         element.send_keys(event_description)
 
     def set_event_metric(self, event_metric):
-        element = self.selenium.find_element(*self._event_metric_locator)
-        element.clear()
-        element.send_keys(event_metric)
+        element = self.selenium.find_element(*self._event_metric1_locator)
+        select = Select(element)
+        select.select_by_value(event_metric)
 
     def set_event_metric2(self, event_metric2):
         element = self.selenium.find_element(*self._event_metric2_locator)
-        element.clear()
-        element.send_keys(event_metric2)
+        select = Select(element)
+        select.select_by_value(event_metric2)
 
     def set_event_name(self, event_name):
         element = self.selenium.find_element(*self._event_name_locator)
@@ -105,7 +108,7 @@ class CreateEvent(Base):
         for handle in self.selenium.window_handles:
             self.selenium.switch_to_window(handle)
             WebDriverWait(self.selenium, self.timeout).until(lambda s: s.title)
-        self.selenium.find_element(*self._event_venue_map_point_locator).click
+        self.selenium.find_element(*self._event_venue_map_point_locator).click()
         self.selenium.find_element(*self._event_venue_map_save_button_locator).click()
 
     def select_start_month(self, option_month):
@@ -151,6 +154,15 @@ class CreateEvent(Base):
 
         self.selenium.find_element(*self._event_choose_categories_locator).click()
         self.selenium.find_element(*self._event_category_modal_save_locator).click()
+
+    def set_event_goals(self):
+        self.selenium.find_element(*self._event_goals_locator).click()
+        for handle in self.selenium.window_handles:
+            self.selenium.switch_to_window(handle)
+            WebDriverWait(self.selenium, self.timeout).until(lambda s: s.title)
+
+        self.selenium.find_element(*self._event_choose_goals_locator).click()
+        self.selenium.find_element(*self._event_goals_modal_save_locator).click()
 
     def select_random_start_year(self):
         return self.select_start_year(random.choice(self.years_values_start[1:]))

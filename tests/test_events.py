@@ -35,12 +35,14 @@ class TestEvents:
         create_event_page.select_end_month("11")
         create_event_page.select_end_day("22")
         create_event_page.select_end_year("2022")
-        create_event_page.select_estimated_attendance("100")
         create_event_page.set_event_category()
-        create_event_page.set_event_metric("Audience attendance")
-        create_event_page.set_event_metric2("Audience participation")
-        create_event_page.set_event_success_metric("Many people attended")
-        create_event_page.set_event_success_metric2("Many people participated")
+        create_event_page.select_estimated_attendance("100")
+        create_event_page.set_event_success_metric("10")
+        create_event_page.set_event_metric("2")
+        create_event_page.set_event_success_metric2("20")
+        create_event_page.set_event_metric2("3")
+        create_event_page.set_event_goals()
+
 
         event_detail_page = create_event_page.click_save_event_button(mozwebqa)
 
