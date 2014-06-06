@@ -4,9 +4,10 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import random
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
-import random
 from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
@@ -36,15 +37,14 @@ class CreateEvent(Base):
     _select_start_year_locator = (By.ID, 'id_start_form_0_year')
     _selected_start_year_locator = (By.ID, 'id_start_form_0_year > option[selected="selected"]')
     _start_year_locator = (By.CSS_SELECTOR, '#id_start_form_0_year > option')
-    _event_success_locator = (By.ID, 'id_eventmetricoutcome_set-0-outcome')
-    _event_success2_locator = (By.ID, 'id_eventmetricoutcome_set-1-outcome')
+    _event_success_locator = (By.ID, 'id_eventmetricoutcome_set-0-expected_outcome')
+    _event_success2_locator = (By.ID, 'id_eventmetricoutcome_set-1-expected_outcome')
     _event_timezone_locator = (By.CSS_SELECTOR, 'id_timezone.current a')
     _event_venue_locator = (By.ID, 'id_venue')
     _event_venue_map_button_locator = (By.CSS_SELECTOR, '[data-reveal-id="map-point"]')
     _event_venue_map_point_locator = (By.CSS_SELECTOR, 'img.leaflet-tile:nth-child(4)')
     _event_venue_map_save_button_locator = (By.CSS_SELECTOR, 'button.update:nth-child(1)')
     _save_event_button_locator = (By.CSS_SELECTOR, 'div.hide-for-small:nth-child(2) > button:nth-child(1)')
-
 
     @property
     def start_year(self):
@@ -143,8 +143,8 @@ class CreateEvent(Base):
 
     def select_estimated_attendance(self, option_size):
         element = self.selenium.find_element(*self._event_estimated_attendance_locator)
-        select = Select(element)
-        select.select_by_value(option_size)
+        element.clear()
+        element.send_keys(option_size)
 
     def set_event_category(self):
         self.selenium.find_element(*self._event_category_locator).click()
