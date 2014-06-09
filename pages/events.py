@@ -81,9 +81,9 @@ class Events(Base):
     def click_advanced_options(self):
         self.selenium.find_element(*self._advanced_options_button_locator).click()
 
-    def click_create_event_button(self, mozwebqa):
+    def click_create_event_button(self):
         self.selenium.find_element(*self._create_event_button_locator).click()
-        return CreateEvent(mozwebqa)
+        return CreateEvent(self.testsetup)
 
     def click_timeline(self):
         self.selenium.find_element(*self._events_timeline_button_locator).click()

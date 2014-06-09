@@ -54,9 +54,9 @@ class CreateEvent(Base):
     def years_values_start(self):
         return [year.get_attribute('value') for year in self.selenium.find_elements(*self._start_year_locator)]
 
-    def click_save_event_button(self, mozwebqa):
+    def click_save_event_button(self):
         self.selenium.find_element(*self._save_event_button_locator).click()
-        return EventDetail(mozwebqa)
+        return EventDetail(self.testsetup)
 
     def set_event_city(self, event_city):
         element = self.selenium.find_element(*self._event_city_locator)

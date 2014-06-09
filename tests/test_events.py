@@ -19,7 +19,7 @@ class TestEvents:
         home_page = Home(mozwebqa)
         home_page.login()
         events_page = home_page.header.click_events_link()
-        create_event_page = events_page.click_create_event_button(mozwebqa)
+        create_event_page = events_page.click_create_event_button()
 
         #Create event with all required fields
         create_event_page.set_event_name("New Event")
@@ -43,7 +43,7 @@ class TestEvents:
         create_event_page.set_event_goals()
 
 
-        event_detail_page = create_event_page.click_save_event_button(mozwebqa)
+        event_detail_page = create_event_page.click_save_event_button()
 
         Assert.true(event_detail_page.is_event_saved_message_visible)
         Assert.equal('New Event', event_detail_page.name)
