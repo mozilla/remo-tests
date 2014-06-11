@@ -109,6 +109,9 @@ class CreateEvent(Base):
             self.selenium.switch_to_window(handle)
             WebDriverWait(self.selenium, self.timeout).until(lambda s: s.title)
         self.selenium.find_element(*self._event_venue_map_point_locator).click()
+        for handle in self.selenium.window_handles:
+            self.selenium.switch_to_window(handle)
+            WebDriverWait(self.selenium, self.timeout).until(lambda s: s.title)
         self.selenium.find_element(*self._event_venue_map_save_button_locator).click()
 
     def select_start_month(self, option_month):
