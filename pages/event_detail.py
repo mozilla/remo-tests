@@ -11,15 +11,11 @@ from pages.base import Base
 
 class EventDetail(Base):
 
-    _edit_event_button_locator = (By.CSS_SELECTOR, '.four.columns.align-right.hide-on-phones > a:nth-child(3)')
+    _button = (By.ID, 'event-attend-button')
+    _edit_event_button_locator = (By.CSS_SELECTOR, 'div.hide-for-small:nth-child(2) > a:nth-child(3)')
     _event_description_locator = (By.CSS_SELECTOR, '.profile-item:nth-child(2)')
     _event_name_locator = (By.CSS_SELECTOR, '.event-single-title')
     _event_saved_message_locator = (By.CSS_SELECTOR, '.success')
-
-    def click_edit_event_button(self):
-        self.selenium.find_element(*self._edit_event_button_locator).click()
-        from pages.edit_event import EditEvent
-        return EditEvent(self.testsetup)
 
     @property
     def description(self):
@@ -32,3 +28,8 @@ class EventDetail(Base):
     @property
     def name(self):
         return self.selenium.find_element(*self._event_name_locator).text
+
+    def click_edit_event_button(self):
+        self.selenium.find_element(*self._edit_event_button_locator).click()
+        from pages.edit_event import EditEvent
+        return EditEvent(self.testsetup)
