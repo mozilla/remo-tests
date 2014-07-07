@@ -21,7 +21,7 @@ class Home(Base):
     def __init__(self, testsetup, open_url=True):
         Base.__init__(self, testsetup)
         if open_url:
-            self.selenium.get(self.base_url)
+            self.open('/')
         WebDriverWait(self.selenium, self.timeout).until(lambda s: s.find_element(*self._promo_box_locator))
 
     @property

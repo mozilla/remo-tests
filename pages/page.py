@@ -114,6 +114,10 @@ class Page(object):
         text_fld.clear()
         text_fld.send_keys(text)
 
+    def open(self, url_fragment):
+        self.selenium.get(self.base_url + url_fragment)
+        self.maximize_window()
+
     def maximize_window(self):
         try:
             self.selenium.maximize_window()
