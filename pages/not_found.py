@@ -13,7 +13,7 @@ class NotFound(Base):
     _404_error_message_locator = (By.CSS_SELECTOR, '[id="404-error"] h2')
 
     def go_to_inexisting_page(self):
-        self.selenium.get(self.testsetup.base_url + '/dummy')
+        self.open('/dummy')
 
     @property
     def is_404_error_message_visible(self):

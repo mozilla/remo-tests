@@ -18,7 +18,7 @@ class About(Base):
     _about_sidebar_wiki_locator = (By.CSS_SELECTOR, '#about-navigation a[href*="wiki"]')
 
     def go_to_about_page(self):
-        self.selenium.get(self.base_url + '/about/')
+        self.open('/about/')
         self.is_the_current_page
 
     @property
