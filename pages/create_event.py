@@ -26,7 +26,7 @@ class CreateEvent(Base):
     _event_end_month_locator = (By.ID, 'id_end_form_0_month')
     _event_end_year_locator = (By.ID, 'id_end_form_0_year')
     _event_estimated_attendance_locator = (By.ID, 'id_estimated_attendance')
-    _event_choose_goals_locator = (By.ID, 'Enable communities-bit')
+    _event_choose_goals_locator = (By.ID, 'Enable-communities-bit')
     _event_goals_locator = (By.CSS_SELECTOR, '[data-reveal-id="goals-modal"]')
     _event_goals_modal_save_locator = (By.CSS_SELECTOR, '#goals-modal > button:nth-child(5)')
     _event_metric1_locator = (By.ID, 'id_eventmetricoutcome_set-0-metric')
