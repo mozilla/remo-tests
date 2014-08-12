@@ -16,6 +16,8 @@ from pages.event_detail import EventDetail
 
 class EditEvent(Base):
 
+    _confirm_delete_event_button_locator = (By.CSS_SELECTOR, 'button.large.button.alert')
+    _delete_event_button_locator = (By.CSS_SELECTOR, 'button.small.button.alert')
     _description_field_locator = (By.ID, 'id_description')
     _event_category_locator = (By.CSS_SELECTOR, '[data-reveal-id="category-modal"]')
     _event_category_modal_save_locator = (By.CSS_SELECTOR, '#category-modal > button:nth-child(5)')
@@ -58,6 +60,12 @@ class EditEvent(Base):
     def click_save_event_button(self):
         self.selenium.find_element(*self._save_event_button_locator).click()
         return EventDetail(self.testsetup)
+
+    def click_delete_event_button(self):
+        self.selenium.find_element(*self._delete_event_button_locator).click()
+
+    def click_confirm_delete_event_button(self):
+        self.selenium.find_element(*self._confirm_delete_event_button_locator).click()
 
     def edit_end_day(self, option_day):
         element = self.selenium.find_element(*self._event_end_day_locator)

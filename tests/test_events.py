@@ -77,3 +77,19 @@ class TestEvents:
 
         Assert.true(event_detail_page.is_event_saved_message_visible)
         Assert.equal('Edited Event title', event_detail_page.name)
+
+    @pytest.mark.credentials
+    @pytest.mark.destructive
+    def test_delete_event(self, mozwebqa):
+        home_page = Home(mozwebqa)
+        home_page.login()
+        events_page = home_page.header.click_events_link()
+        events_page.filter_for("Edited Event title")
+        event_detail_page = events_page.click_filtered_event()
+        edit_event_page = event_detail_page.click_edit_event_button()
+
+        #Delete newly created event
+        edit_event_page.click_delete_event_button()
+        events_page = edit_event_page.click_confirm_delete_event_button()
+
+        Assert.true(events_page.is_event_deleted_message_visible)
