@@ -12,6 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from pages.base import Base
 from pages.event_detail import EventDetail
+from pages.events import Events
 
 
 class EditEvent(Base):
@@ -66,6 +67,7 @@ class EditEvent(Base):
 
     def click_confirm_delete_event_button(self):
         self.selenium.find_element(*self._confirm_delete_event_button_locator).click()
+        return Events(self.testsetup)
 
     def edit_end_day(self, option_day):
         element = self.selenium.find_element(*self._event_end_day_locator)
