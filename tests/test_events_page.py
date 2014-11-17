@@ -49,12 +49,12 @@ class TestEventsPage:
 
     @pytest.mark.nondestructive
     def test_filter_results_by_owner(self, mozwebqa):
-        query = u'John Giannelos'
         home_page = Home(mozwebqa)
 
         events_page = home_page.header.click_events_link()
+        query = events_page.select_random_event_owner()
         events_page.filter_for(query)
-        Assert.equal(u'John Giannelos', events_page.event_profile_owner_text)
+        Assert.equal(query, events_page.event_profile_owner_text)
 
     @pytest.mark.nondestructive
     def test_filter_results_by_location(self, mozwebqa):

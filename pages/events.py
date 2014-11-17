@@ -4,6 +4,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import random
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -66,6 +68,13 @@ class Events(Base):
     @property
     def event_profile_owner_text(self):
         return self.selenium.find_element(*self._events_owner_locator).text
+
+    @property
+    def event_owners(self):
+        return [event.text for event in self.selenium.find_elements(*self._events_owner_locator)]
+
+    def select_random_event_owner(self):
+        return random.choice(self.event_owners)
 
     @property
     def events_icalendar_export_button_url(self):
