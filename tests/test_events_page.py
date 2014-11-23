@@ -58,12 +58,12 @@ class TestEventsPage:
 
     @pytest.mark.nondestructive
     def test_filter_results_by_location(self, mozwebqa):
-        query = u'Greece'
         home_page = Home(mozwebqa)
-
         events_page = home_page.header.click_events_link()
+        query = events_page.select_random_event_location()
+
         events_page.filter_for(query)
-        Assert.contains(u'Greece', events_page.event_profile_location_text)
+        Assert.contains(query, events_page.event_profile_location_text)
 
     @pytest.mark.skip_selenium
     @pytest.mark.nondestructive

@@ -84,6 +84,23 @@ class Events(Base):
     def event_items_count(self):
         return len(self.selenium.find_elements(*self._events_result_locator))
 
+    @property
+    def event_locations(self):
+        all_events = self.parse_locations()
+        return all_events
+
+    def parse_locations(self):
+        location_list = []
+        for event in self.selenium.find_elements(*self._events_location_locator):
+            for location in event.text.split(' - '):
+                if location != "SFO Commons":
+                    if location not in location_list:
+                        location_list.append(location)
+        return location_list
+
+    def select_random_event_location(self):
+        return random.choice(self.event_locations)
+
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._events_filter_locator)
         element.send_keys(search_term)
