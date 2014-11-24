@@ -22,6 +22,7 @@ class Events(Base):
     _create_event_button_locator = (By.ID, 'events-create-button')
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
+    _events_location_locator_links = (By.CSS_SELECTOR, 'div.events-table-location a')
     _events_map_locator = (By.ID, 'map')
     _events_timeline_button_locator = (By.ID, 'events-timeline-button')
     _events_timeline_locator = (By.ID, 'event-timeline')
@@ -91,11 +92,9 @@ class Events(Base):
 
     def parse_locations(self):
         location_list = []
-        for event in self.selenium.find_elements(*self._events_location_locator):
-            for location in event.text.split(' - '):
-                if location != "SFO Commons":
-                    if location not in location_list:
-                        location_list.append(location)
+        for event in self.selenium.find_elements(*self._events_location_locator_links):
+            if event.text not in location_list:
+                location_list.append(event.text)
         return location_list
 
     def select_random_event_location(self):
