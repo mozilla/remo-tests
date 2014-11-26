@@ -20,6 +20,7 @@ class Events(Base):
     _advanced_options_button_locator = (By.ID, 'adv-search-icon-events')
     _advanced_search_form_locator = (By.ID, 'searchform')
     _create_event_button_locator = (By.ID, 'events-create-button')
+    _event_deleted_message_locator = (By.CSS_SELECTOR, '.success')
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
     _events_map_locator = (By.ID, 'map')
@@ -35,7 +36,11 @@ class Events(Base):
         Base.__init__(self, testsetup)
         # Wait for the page to be populated
         WebDriverWait(self.selenium, self.timeout).until(
-                lambda s: len(s.find_elements(*self._events_result_locator)))
+            lambda s: len(s.find_elements(*self._events_map_locator)))
+
+    @property
+    def is_event_deleted_message_visible(self):
+        return self.is_element_visible(*self._event_deleted_message_locator)
 
     @property
     def is_events_map_visible(self):
