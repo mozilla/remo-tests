@@ -22,7 +22,7 @@ class Events(Base):
     _create_event_button_locator = (By.ID, 'events-create-button')
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
-    _events_location_locator_links = (By.CSS_SELECTOR, 'div.events-table-location a')
+    _events_location_links_locator = (By.CSS_SELECTOR, 'div.events-table-location a')
     _events_map_locator = (By.ID, 'map')
     _events_timeline_button_locator = (By.ID, 'events-timeline-button')
     _events_timeline_locator = (By.ID, 'event-timeline')
@@ -83,22 +83,19 @@ class Events(Base):
 
     @property
     def event_items_count(self):
-        return len(self.selenium.find_elements(*self._events_result_locator))
+        return self.selenium.find_elements(*self._events_result_locator)
 
     @property
-    def event_locations(self):
-        all_events = self.parse_locations()
-        return all_events
+    def event_locations_and_count(self):
+        return self.get_locations()
 
-    def parse_locations(self):
-        location_list = []
-        for event in self.selenium.find_elements(*self._events_location_locator_links):
-            if event.text not in location_list:
-                location_list.append(event.text)
-        return location_list
+    def get_locations(self):
+        location_list = self.selenium.find_elements(*self._events_location_links_locator)
+        return len(location_list), location_list
 
     def select_random_event_location(self):
-        return random.choice(self.event_locations)
+        count, location_list = self.event_locations_and_count
+        return location_list[random.randint(0, count-1)].text
 
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._events_filter_locator)
