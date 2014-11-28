@@ -86,16 +86,14 @@ class Events(Base):
         return self.selenium.find_elements(*self._events_result_locator)
 
     @property
-    def event_locations_and_count(self):
+    def event_locations(self):
         return self.get_locations()
 
     def get_locations(self):
-        location_list = self.selenium.find_elements(*self._events_location_links_locator)
-        return len(location_list), location_list
+        return self.selenium.find_elements(*self._events_location_links_locator)
 
     def select_random_event_location(self):
-        count, location_list = self.event_locations_and_count
-        return location_list[random.randint(0, count-1)].text
+        return self.event_locations[random.randint(0, len(self.event_locations) - 1)].text
 
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._events_filter_locator)
