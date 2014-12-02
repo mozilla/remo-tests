@@ -89,9 +89,11 @@ class Events(Base):
     def event_locations(self):
         return self.get_locations()
 
+    @property
     def get_locations(self):
         return self.selenium.find_elements(*self._events_location_links_locator)
 
+    @property
     def select_random_event_location(self):
         return self.event_locations[random.randint(0, len(self.event_locations) - 1)].text
 
