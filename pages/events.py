@@ -23,6 +23,7 @@ class Events(Base):
     _event_deleted_message_locator = (By.CSS_SELECTOR, '.success')
     _events_filter_locator = (By.ID, 'searchfield')
     _events_location_locator = (By.CSS_SELECTOR, 'div.events-table-location')
+    _events_location_links_locator = (By.CSS_SELECTOR, 'div.events-table-location a')
     _events_map_locator = (By.ID, 'map')
     _events_timeline_button_locator = (By.ID, 'events-timeline-button')
     _events_timeline_locator = (By.ID, 'event-timeline')
@@ -87,7 +88,19 @@ class Events(Base):
 
     @property
     def event_items_count(self):
-        return len(self.selenium.find_elements(*self._events_result_locator))
+        return self.selenium.find_elements(*self._events_result_locator)
+
+    @property
+    def event_locations(self):
+        return self.get_locations()
+
+    @property
+    def get_locations(self):
+        return self.selenium.find_elements(*self._events_location_links_locator)
+
+    @property
+    def select_random_event_location(self):
+        return self.event_locations[random.randint(0, len(self.event_locations) - 1)].text
 
     def filter_for(self, search_term):
         element = self.selenium.find_element(*self._events_filter_locator)
